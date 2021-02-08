@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+$color-background: #fafafa;
+$color-header: #0c050a;
+
+%centrar-flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+%altura-ancho-100 {
+    width: 100%;
+    height: 100%;
+}
+
+
+
+
+
+//////// CÓDIGO
+
+body {
+    margin: 0;
+    background-color: $color-background;
+    font-family: "Roboto";
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+button {
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+}
+
+.contenedor-header {
+    background-color: $color-header;
+    @extend %altura-ancho-100;
+    @extend %centrar-flex;
+    .contenedor-logo {
+        width: 240px;
+        .logo {
+            background-color: #ed1d23;
+            color: $color-background;
+            font-family: 'Bangers', cursive;
+            font-size: 45px;
+            line-height: 50px;
+            margin: 0;
+            padding: 0 10px;
+        }
+    }
+        
+}
+
+.contenedor-imagen-principal {
+    width: 100%;
+    height: 400px;
+    background-size: cover;
+    @extend %centrar-flex;
+    background-image: url(img/27401ae6-a2dd-4326-9c6d-756873245fdd.jpg);
+    flex: 1;
+    opacity: .7;
+    position: relative;
+}
+
+.contenedor-seccion-principal {
+    
+    @extend %centrar-flex;.contenedor-imagen-principal
+    .seccion-principal {
+        background-color: pink;
+        width: 1300px;
+        height: 100vh;
+    }
+}
+
+.contenedor-form-busqueda {
+    background-color: #f5f5f5;
+    margin: 5px;
+}
+
+#buscar-productos {
+    cursor: text;
+    border: none;
+    padding: 13px;
+    border-bottom: 2px solid black;
+    font-family: "Roboto";
+    background-color: #f5f5f5;
+}
+
+.buscar {
+    font-family: "Roboto";
+}
+
+.contenedor-busqueda {
+    display: flex;
+    margin: 5px;
+}
+
+.fas.fa-search {
+    position: relative;
+    right: 25px;
+    top: 10px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
