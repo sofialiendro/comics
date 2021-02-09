@@ -19,12 +19,13 @@
             </div>
         </section>
         <!-- Fin header -->
-        <!-- Comienza seccion principal -->
+        <!-- Comienza seccion imagen -->
         <section class="contenedor-imagen-principal" alt="Many sheroes"></section>
-
+        <!-- Fin seccion imagen -->
+        
         <section class="contenedor-seccion-principal">
             <div class="seccion-principal">
-
+        <!-- Comienza seccion busqueda -->
                 <h3 class="buscar">Search</h3>
                 <form class="formulario">
                     <div class="contenedor-form-busqueda elemento-form">
@@ -34,14 +35,14 @@
                             <i class="fas fa-search" aria-label="Magnifier icon"></i>
                         </div>
                     </div>
-                        <div>
+                        <div class="contenedor-botones-busqueda">
                             <p class="botones-busqueda elemento-form">TYPE</p>
                                 <select id="tipo" placeholder="tipo">
                                     <option value="">COMICS</option>
                                     <option value="zapato">CHARACTERS</option>
-                            </select>
+                                </select>
                         </div>
-                        <div>
+                        <div class="contenedor-botones-busqueda">
                             <p class="botones-busqueda elemento-form">ORDER</p>
                             <select id="orden" placeholder="orden">
                                 <option value="az">A-Z</option>
@@ -50,9 +51,12 @@
                                 <option value="viejos">Older</option>
                             </select>
                         </div>
-                    <button class="boton-buscar">SEARCH</button>
+                        <div class="contenedor-boton-buscar">
+                            <button class="boton-buscar">SEARCH</button>
+                        </div>
+                        
                 </form>
-                
+               
                 <!-- <form class="formulario-principal" name="form-princ">
                     
                     <div class="contenedor-form-busqueda">
@@ -63,10 +67,52 @@
                         </div>
                     </div>
                 </form> -->
+        <!-- Fin seccion busqueda --> 
+        <!-- Comienza seccion comics -->
+                <div>
+                    <h3 class="resultados">Results</h3>
+                    <p class="cantidad-resultados">XXXX RESULTS</p>
+                </div>    
+                    
+                <section class="comics">
+
+
+                </section>
+                    
+                    
+                    
+                <div class="botones-comics">
+                    <button type="button" class="primera-pagina boton-comic" aria-label="First page" disabled="">
+                    <i class="fas fa-angle-double-left" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="siguiente-pagina boton-comic" aria-label="Previous page" disabled="">
+                    <i class="fas fa-angle-left" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="proxima-pagina boton-comic" aria-label="Next page">
+                    <i class="fas fa-angle-right" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="ultima-pagina boton-comic" aria-label="Last page">
+                    <i class="fas fa-angle-double-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+                
+
+        <!-- Fin seccion comics -->
+
+        
 
             </div>
         </section>
 
+
+
+        <!-- Comienzo footer -->
+      <footer class="footer-comic">
+        <div class="contenedor-footer">
+          <p class="última-frase-footer">Coded by Eugenia & Sofía</p>
+        </div>  
+      </footer>
+      <!-- Fin footer -->
 
         <script src="index.js"></script>
     </body>

@@ -1,6 +1,7 @@
+@charset "UTF-8";
 @import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-.boton-buscar, .contenedor-seccion-principal, .contenedor-imagen-principal, .contenedor-header {
+.contenedor-footer, .botones-comics, .contenedor-botones-busqueda, .boton-buscar, .boton-comic, .contenedor-seccion-principal, .contenedor-imagen-principal, .contenedor-header {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -65,12 +66,11 @@ button {
 .contenedor-seccion-principal .seccion-principal {
   width: 1300px;
   height: 100vh;
-  background-color: pink;
 }
 
 .formulario {
-  background-color: green;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 }
 
@@ -89,7 +89,8 @@ input, select {
   border-bottom: 2px solid black;
   font-family: "Roboto";
   width: 600px;
-  font-size: 30px;
+  font-size: 20px;
+  background-color: #fafafa;
 }
 
 .contenedor-busqueda {
@@ -102,12 +103,23 @@ input, select {
   cursor: pointer;
 }
 
-.buscar {
+.buscar, .resultados {
   font-size: 25px;
   margin: 0;
+  padding-top: 40px;
 }
 
-.boton-buscar {
+.resultados {
+  padding-top: 80px;
+}
+
+.contenedor-boton-buscar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.boton-buscar, .boton-comic {
   font-size: 15px;
   padding: 20px;
   height: 30px;
@@ -116,9 +128,49 @@ input, select {
   color: #fafafa;
 }
 
-.botones-busqueda {
+.botones-busqueda, .cantidad-resultados {
   color: grey;
   font-weight: bold;
+  margin: 20px;
+}
+
+.cantidad-resultados {
+  margin-top: 20px;
+  margin-left: 0;
+}
+
+.boton-comic:disabled {
+  color: grey;
+}
+
+.boton-comic {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  font-size: 25px;
+  margin: 5px;
+}
+
+.footer-comic {
+  margin-top: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #0c050a;
+  width: 100%;
+  color: #fafafa;
+  font-family: "Bangers";
+}
+
+.contenedor-footer {
+  flex-direction: column;
+  margin: 20px;
+}
+
+.última-frase-footer {
+  font-size: 20px;
+  text-align: center;
+  margin: 0;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -3,6 +3,8 @@
 
 $color-background: #fafafa;
 $color-header: #0c050a;
+$color-secundario: grey;
+
 
 %centrar-flex {
     display: flex;
@@ -82,13 +84,13 @@ button {
     .seccion-principal {
         width: 1300px;
         height: 100vh;
-        background-color: pink; 
+        
     }
 }
 
 .formulario {
-    background-color: green;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -110,7 +112,8 @@ input, select {
     border-bottom: 2px solid black;
     font-family: "Roboto";
     width: 600px;
-    font-size: 30px;
+    font-size: 20px;
+    background-color: $color-background;
 }
 
 
@@ -126,12 +129,24 @@ input, select {
     }
 }
 
-.buscar {
+.buscar, .resultados {
         font-size: 25px;
         margin: 0;
-    }
+        padding-top: 40px;
+}
 
-.boton-buscar {
+.resultados {
+    padding-top: 80px;
+}
+
+
+.contenedor-boton-buscar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.boton-buscar, .boton-comic {
     font-size: 15px;
     padding: 20px;
     height: 30px;
@@ -141,10 +156,63 @@ input, select {
     @extend %centrar-flex; 
 }
 
-.botones-busqueda {
-    color: grey;
-    font-weight: bold;
+.contenedor-botones-busqueda {
+    @extend %centrar-flex;
+}
 
+
+.botones-busqueda, .cantidad-resultados {
+    color: $color-secundario;
+    font-weight: bold;
+    margin: 20px;
+}
+
+.cantidad-resultados {
+    margin-top:20px;
+    margin-left: 0;
+}
+
+
+.botones-comics {
+    @extend %centrar-flex;
+    
+}
+
+.boton-comic:disabled {
+    color: $color-secundario;
+}
+
+
+.boton-comic {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    font-size: 25px;
+    @extend %centrar-flex;
+    margin: 5px;
+}
+
+.footer-comic {
+    margin-top: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:$color-header;
+    width: 100%;
+    color: $color-background;
+    font-family: "Bangers";
+}
+
+.contenedor-footer {
+    @extend %centrar-flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.última-frase-footer {
+    font-size: 20px;
+    text-align: center;
+    margin: 0;
 }
 
 
