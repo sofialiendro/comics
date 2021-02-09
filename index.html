@@ -25,17 +25,44 @@
         <section class="contenedor-seccion-principal">
             <div class="seccion-principal">
 
-                <form class="formulario-principal" name="form-princ">
-                    
-                    <div class="contenedor-form-busqueda">
-                        <h3 class="buscar">SEARCH</h3>
+                <h3 class="buscar">Search</h3>
+                <form class="formulario">
+                    <div class="contenedor-form-busqueda elemento-form">
+                        
                         <div class="contenedor-busqueda" class="boton-buscar">
-                            <input type="text" placeholder="Search products" id="buscar-productos">
+                            <input id="buscar-productos" type="text" placeholder="Search comics" />
                             <i class="fas fa-search" aria-label="Magnifier icon"></i>
                         </div>
                     </div>
-
+                        <div>
+                            <p class="botones-busqueda elemento-form">TYPE</p>
+                                <select id="tipo" placeholder="tipo">
+                                    <option value="">COMICS</option>
+                                    <option value="zapato">CHARACTERS</option>
+                            </select>
+                        </div>
+                        <div>
+                            <p class="botones-busqueda elemento-form">ORDER</p>
+                            <select id="orden" placeholder="orden">
+                                <option value="az">A-Z</option>
+                                <option value="za">Z-A</option>
+                                <option value="nuevos">Newer</option>
+                                <option value="viejos">Older</option>
+                            </select>
+                        </div>
+                    <button class="boton-buscar">SEARCH</button>
                 </form>
+                
+                <!-- <form class="formulario-principal" name="form-princ">
+                    
+                    <div class="contenedor-form-busqueda">
+                        <h3 class="buscar">Search</h3>
+                        <div class="contenedor-busqueda" class="boton-buscar">
+                            <input type="text" placeholder="Search comics" id="buscar-productos">
+                            <i class="fas fa-search" aria-label="Magnifier icon"></i>
+                        </div>
+                    </div>
+                </form> -->
 
             </div>
         </section>

@@ -1,12 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Bangers&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
-.contenedor-seccion-principal, .contenedor-imagen-principal, .contenedor-header {
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+.boton-buscar, .contenedor-seccion-principal, .contenedor-imagen-principal, .contenedor-header {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.contenedor-header {
+.contenedor-imagen-principal::after, .contenedor-header {
   width: 100%;
   height: 100%;
 }
@@ -14,6 +14,7 @@
 body {
   margin: 0;
   background-color: #fafafa;
+  font-family: "Roboto";
 }
 
 html {
@@ -52,19 +53,33 @@ button {
   background-size: cover;
   background-image: url(img/27401ae6-a2dd-4326-9c6d-756873245fdd.jpg);
   flex: 1;
-  opacity: 0.7;
   position: relative;
 }
 
-.contenedor-seccion-principal .seccion-principal {
-  background-color: pink;
-  width: 1300px;
-  height: 100vh;
+.contenedor-imagen-principal::after {
+  content: "";
+  display: block;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
-.contenedor-botones-aside-2 {
-  background-color: #f5f5f5;
-  margin: 5px;
+.contenedor-seccion-principal .seccion-principal {
+  width: 1300px;
+  height: 100vh;
+  background-color: pink;
+}
+
+.formulario {
+  background-color: green;
+  display: flex;
+  align-items: center;
+}
+
+input, select {
+  height: 30px;
+  background-color: white;
+  font-size: 15px;
+  border: none;
+  margin-right: 10px;
 }
 
 #buscar-productos {
@@ -72,21 +87,38 @@ button {
   border: none;
   padding: 13px;
   border-bottom: 2px solid black;
-  font-family: "Quicksand";
-  background-color: #f5f5f5;
+  font-family: "Roboto";
+  width: 600px;
+  font-size: 30px;
 }
 
 .contenedor-busqueda {
   display: flex;
-  margin: 5px;
 }
-
-.fas.fa-search {
+.contenedor-busqueda .fas.fa-search {
   position: relative;
   right: 25px;
-  top: 10px;
-  font-size: 18px;
+  font-size: 20px;
   cursor: pointer;
+}
+
+.buscar {
+  font-size: 25px;
+  margin: 0;
+}
+
+.boton-buscar {
+  font-size: 15px;
+  padding: 20px;
+  height: 30px;
+  background-color: #0c050a;
+  border: none;
+  color: #fafafa;
+}
+
+.botones-busqueda {
+  color: grey;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=style.css.map */
