@@ -1,15 +1,118 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <title>S&E Comic</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdn.rawgit.com/konpa/devicon/df6431e323547add1b4cf45992913f15286456d3/devicon.min.css">
+        <link rel="shortcut icon" type="image/ico" href="favicon.ico">
+        <title>SOFEU Comics</title>
     </head>
     <body>
+
+        <!-- Comienza header -->
+        <section class="contenedor-header">
+            <div class="contenedor-logo">
+                <h1 class="logo">SOFEU COMICS</h1>
+            </div>
+        </section>
+        <!-- Fin header -->
+        <!-- Comienza seccion imagen -->
+        <section class="contenedor-imagen-principal" alt="Many sheroes"></section>
+        <!-- Fin seccion imagen -->
+        
+        <section class="contenedor-seccion-principal">
+            <div class="seccion-principal">
+        <!-- Comienza seccion busqueda -->
+                <h3 class="buscar">Search</h3>
+                <form class="formulario">
+                    <div class="contenedor-form-busqueda elemento-form">
+                        
+                        <div class="contenedor-busqueda" class="boton-buscar">
+                            <input id="buscar-productos" type="text" placeholder="Search comics" />
+                            <i class="fas fa-search" aria-label="Magnifier icon"></i>
+                        </div>
+                    </div>
+                        <div class="contenedor-botones-busqueda">
+                            <p class="botones-busqueda elemento-form">TYPE</p>
+                                <select id="tipo" placeholder="tipo">
+                                    <option value="">COMICS</option>
+                                    <option value="zapato">CHARACTERS</option>
+                                </select>
+                        </div>
+                        <div class="contenedor-botones-busqueda">
+                            <p class="botones-busqueda elemento-form">ORDER</p>
+                            <select id="orden" placeholder="orden">
+                                <option value="az">A-Z</option>
+                                <option value="za">Z-A</option>
+                                <option value="nuevos">Newer</option>
+                                <option value="viejos">Older</option>
+                            </select>
+                        </div>
+                        <div class="contenedor-boton-buscar">
+                            <button class="boton-buscar">SEARCH</button>
+                        </div>
+                        
+                </form>
+               
+                <!-- <form class="formulario-principal" name="form-princ">
+                    
+                    <div class="contenedor-form-busqueda">
+                        <h3 class="buscar">Search</h3>
+                        <div class="contenedor-busqueda" class="boton-buscar">
+                            <input type="text" placeholder="Search comics" id="buscar-productos">
+                            <i class="fas fa-search" aria-label="Magnifier icon"></i>
+                        </div>
+                    </div>
+                </form> -->
+        <!-- Fin seccion busqueda --> 
+        <!-- Comienza seccion comics -->
+                <div>
+                    <h3 class="resultados">Results</h3>
+                    <p class="cantidad-resultados">XXXX RESULTS</p>
+                </div>    
+                    
+                <section class="comics">
+
+
+                </section>
+                    
+                    
+                    
+                <div class="botones-comics">
+                    <button type="button" class="primera-pagina boton-comic" aria-label="First page" disabled="">
+                    <i class="fas fa-angle-double-left" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="siguiente-pagina boton-comic" aria-label="Previous page" disabled="">
+                    <i class="fas fa-angle-left" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="proxima-pagina boton-comic" aria-label="Next page">
+                    <i class="fas fa-angle-right" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="ultima-pagina boton-comic" aria-label="Last page">
+                    <i class="fas fa-angle-double-right" aria-hidden="true"></i>
+                    </button>
+                </div>
+                
+
+        <!-- Fin seccion comics -->
+
         
 
+            </div>
+        </section>
+
+
+
+        <!-- Comienzo footer -->
+      <footer class="footer-comic">
+        <div class="contenedor-footer">
+          <p class="última-frase-footer">Coded by Eugenia & Sofía</p>
+        </div>  
+      </footer>
+      <!-- Fin footer -->
 
         <script src="index.js"></script>
     </body>
