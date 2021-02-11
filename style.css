@@ -114,8 +114,9 @@ input, select {
 }
 
 article {
-  width: 250px;
-  height: 420px;
+  display: flex;
+  width: 200px;
+  height: 200px;
   border: 2px solid black;
   text-align: center;
 }

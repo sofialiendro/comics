@@ -26,6 +26,7 @@ body {
     margin: 0;
     background-color: $color-background;
     font-family: "Roboto";
+
 }
 
 html {
@@ -140,21 +141,19 @@ input, select {
 }
 
 article{
-    width: 250px;
-    height: 420px;
+    display: flex;
+    width: 200px;
+    height: 200px;
     border: 2px solid black;
     text-align: center;
    
-
-    .portada-comic {
-        width:100%;
-    
-
-        img{
-            width: 100%;
-            height:auto;
-        }
+.portada-comic {
+ width:100%;
+    img{
+    width: 100%;
+    height:auto;
     }
+}
     .info-portada{
         padding: 5px;
 
