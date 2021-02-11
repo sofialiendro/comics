@@ -113,6 +113,23 @@ input, select {
   padding-top: 80px;
 }
 
+article {
+  width: 250px;
+  height: 420px;
+  border: 2px solid black;
+  text-align: center;
+}
+article .portada-comic {
+  width: 100%;
+}
+article .portada-comic img {
+  width: 100%;
+  height: auto;
+}
+article .info-portada {
+  padding: 5px;
+}
+
 .contenedor-boton-buscar {
   display: flex;
   justify-content: space-between;

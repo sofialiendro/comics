@@ -139,6 +139,29 @@ input, select {
     padding-top: 80px;
 }
 
+article{
+    width: 250px;
+    height: 420px;
+    border: 2px solid black;
+    text-align: center;
+   
+
+    .portada-comic {
+        width:100%;
+    
+
+        img{
+            width: 100%;
+            height:auto;
+        }
+    }
+    .info-portada{
+        padding: 5px;
+
+    }
+
+}
+
 
 .contenedor-boton-buscar {
     display: flex;
