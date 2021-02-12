@@ -4,21 +4,20 @@ fetch("http://gateway.marvel.com/v1/public/comics?apikey=4d140645edcdb0c22d45f34
 .then(res=>res.json())
 .then((data)=>{
     console.log(data)
-    const portadaComic=document.querySelector("article");
+    const portadasComic=document.getElementById("comics");
     comics = data.data.results
 
-    console.log(comics)
-
     comics.map((comic)=>{
-        portadaComic.innerHTML+=`
+        portadasComic.innerHTML+=`
+        <article>
         <div class="portada-comic">
         <img src="${comic.thumbnail.path}.jpg"></img>
         <div>
         <div class="info-portada">${comic.title}<div>
         </div>
+        </article>
         
         `
-
     })
    
 })
