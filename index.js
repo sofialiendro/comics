@@ -1,18 +1,24 @@
-fetch("http://gateway.marvel.com/v1/public/comics?ts=1&apikey=4d140645edcdb0c22d45f34f5fd8098a")
+let comics=[]
+
+fetch("http://gateway.marvel.com/v1/public/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a")
+.then(res=>res.json())
 .then((data)=>{
-return data.json()
+    console.log(data)
+    const portadasComic=document.getElementById("comics");
+    comics = data.data.results
+
+    comics.map((comic)=>{
+        portadasComic.innerHTML+=`
+        <article>
+        <div class="portada-comic">
+        <img src="${comic.thumbnail.path}.jpg"></img>
+        <div>
+        <div class="info-portada">${comic.title}<div>
+        </div>
+        </article>
+        
+        `
+    })
+   
 })
-.then((info)=>{
-    console.log(info)
 
-const portadaComic=document.querySelector("article");
-
-portadaComic.innerHTML=`
-<div class="portada-comic">
-<img src="img/wonder-woman.jpg"></img>
-<div>
-<div class="info-portada">Hola soy una portada de ejemplo<div>
-</div>
-
-` 
-});
