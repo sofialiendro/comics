@@ -22,16 +22,55 @@
    
 // })
 
-////////////// CONEXION PARA CAMBIO DE PAGINA
+let offset = 0
 
 const botonProx = document.querySelector(".proxima-pagina");
+const botonPrevio = document.querySelector(".previa-pagina");
+const botonPrimera = document.querySelector(".primera-pagina");
+const botonUltima = document.querySelector(".ultima-pagina");
 let paginaActual = 0;
+let resultsCount = 0
+const $ = (query) => document.querySelector(query)
 
-botonProx.onclick = () => {
-  paginaActual++
-  console.log("pagina actual", paginaActual)
-  buscarComics(paginaActual)
+
+////////////// CONEXION PARA CAMBIO DE PAGINA
+
+const paginado = () => {
+
+
+  botonProx.onclick = () => {
+    paginaActual++
+    console.log("pagina actual", paginaActual)
+    buscarComics(paginaActual)
+  }
+
+
+  botonPrevio.onclick = () => {
+    paginaActual--
+    console.log("pagina actual", paginaActual)
+    buscarComics(paginaActual)
+  }
+
+  botonPrimera.onclick = () => {
+    
+    offset = 0;
+    paginaActual = 0;
+    console.log("vamos a la primera", paginaActual)
+    buscarComics(paginaActual)
+  }
+
+  botonUltima.onclick = () => {
+    
+    offset = 2420;
+    paginaActual = 2420;
+    console.log("vamos a la ultima", paginaActual)
+    buscarComics(paginaActual)
+  }
+
 }
+
+paginado()
+
 
 const comicsPorPagina = 20;
 
@@ -48,7 +87,7 @@ const buscarComics = () => {
     seccion.innerHTML = ""
     comics.map((comic) => {
       seccion.innerHTML += `
-              <article>
+              <article class="tarjeta-comic">
               <div class="portada-comic">
               <img src="${comic.thumbnail.path}.jpg"></img>
               <div>
@@ -65,6 +104,59 @@ const buscarComics = () => {
 buscarComics()
 
 
+// let resultsCount = 0
+// const $ = (query) => document.querySelector(query)
+
+
+// const botonPrevio = document.querySelector(".previa-pagina");
+
+// const updatePaginationCallback = (callback) => {
+//   $('.primera-pagina').onclick = () => {
+//     offset = 0
+//     callback()
+//   }
+
+//   $('.previa-pagina').onclick = () => {
+//     offset -= 20
+//     if (offset < 0) {
+//       offset = 0
+//     }
+//     callback()
+//   }
+
+//   $('.proxima-pagina').onclick = () => {
+//     offset += 20
+//     callback()
+//   }
+
+//   $('.ultima-pagina').onclick = () => {
+//     const isExact = resultsCount % 20 === 0
+//     const pages = Math.floor(resultsCount / 20)
+//     offset = (isExact ? pages - 1 : pages) * 20
+//     callback()
+//   }
+// }
+
+// updatePaginationCallback()
+
+// const updatePagination = () => {
+//   if (offset === 0) {
+//     $('.primera-pagina').disabled = true
+//     $('.previa-pagina').disabled = true
+//   } else {
+//     $('.primera-pagina').disabled = false
+//     $('.previa-pagina').disabled = false
+//   }
+
+//   if (offset + 20 >= resultsCount) {
+//     $('.ultima-pagina').disabled = true
+//     $('.proxima-pagina').disabled = true
+//   } else {
+//     $('.ultima-pagina').disabled = false
+//     $('.proxima-pagina').disabled = false
+//   }
+// }
+// updatePagination()
 
 // const botonProx = document.querySelector(".proxima-pagina");
 // const urlBase = "https://gateway.marvel.com/v1/public/"
