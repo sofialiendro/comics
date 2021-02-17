@@ -71,6 +71,26 @@ const paginado = () => {
 
 paginado()
 
+const botonesPaginas = () => {
+  if (offset === 0) {
+    botonPrimera.disabled = true;
+    botonPrevio.disabled = true;
+  } 
+  else {
+    botonPrimera.disabled = false;
+    botonPrevio.disabled = false;
+  }
+
+  if (offset === 48400) {
+    botonUltima.disabled = true;
+    botonProx.disabled = true;
+  } else {
+    botonUltima.disabled = false;
+    botonProx.disabled = false;
+  }
+}
+botonesPaginas()
+
 
 const comicsPorPagina = 20;
 
@@ -103,92 +123,3 @@ const buscarComics = () => {
 
 buscarComics()
 
-
-// let resultsCount = 0
-// const $ = (query) => document.querySelector(query)
-
-
-// const botonPrevio = document.querySelector(".previa-pagina");
-
-// const updatePaginationCallback = (callback) => {
-//   $('.primera-pagina').onclick = () => {
-//     offset = 0
-//     callback()
-//   }
-
-//   $('.previa-pagina').onclick = () => {
-//     offset -= 20
-//     if (offset < 0) {
-//       offset = 0
-//     }
-//     callback()
-//   }
-
-//   $('.proxima-pagina').onclick = () => {
-//     offset += 20
-//     callback()
-//   }
-
-//   $('.ultima-pagina').onclick = () => {
-//     const isExact = resultsCount % 20 === 0
-//     const pages = Math.floor(resultsCount / 20)
-//     offset = (isExact ? pages - 1 : pages) * 20
-//     callback()
-//   }
-// }
-
-// updatePaginationCallback()
-
-// const updatePagination = () => {
-//   if (offset === 0) {
-//     $('.primera-pagina').disabled = true
-//     $('.previa-pagina').disabled = true
-//   } else {
-//     $('.primera-pagina').disabled = false
-//     $('.previa-pagina').disabled = false
-//   }
-
-//   if (offset + 20 >= resultsCount) {
-//     $('.ultima-pagina').disabled = true
-//     $('.proxima-pagina').disabled = true
-//   } else {
-//     $('.ultima-pagina').disabled = false
-//     $('.proxima-pagina').disabled = false
-//   }
-// }
-// updatePagination()
-
-// const botonProx = document.querySelector(".proxima-pagina");
-// const urlBase = "https://gateway.marvel.com/v1/public/"
-// const apiKey = "4d140645edcdb0c22d45f34f5fd8098a"
-// const comicsPorPagina = 20;
-// let paginaActual = 0;
-
-// botonProx.onclick = () => {
-//   paginaActual++
-//   console.log("pagina actual", paginaActual)
-//   buscarComics(paginaActual)
-// }
-
-// const buscarComics = (url, paginaActual, nombre) => {
-//   console.log("buscando comics...")
-//   fetch(`${urlBase + url}?apikey=${apiKey}&offset=${paginaActual * comicsPorPagina}`)
-//   .then((res) => {
-//     return res.json()
-//   })
-//   .then((data) => {
-//     console.log(data)
-//     personajes = data.data.results
-//     const seccion = document.getElementById("comics")
-//     seccion.innerHTML = ''
-//     personajes.map((personaje) => {
-//       seccion.innerHTML += `<p>${personaje[nombre]}</p>`
-//     })
-    
-//   })
-// }
-
-
-
-// buscarComics("comics", paginaActual, "title")
-// buscarComics("characters", paginaActual, "name")
