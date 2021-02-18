@@ -1,26 +1,4 @@
-// let comics=[]
 
-// fetch("http://gateway.marvel.com/v1/public/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a")
-// .then(res=>res.json())
-// .then((data)=>{
-//     console.log(data)
-//     const portadasComic=document.getElementById("comics");
-//     comics = data.data.results
-
-//     comics.map((comic)=>{
-//         portadasComic.innerHTML+=`
-//         <article>
-//         <div class="portada-comic">
-//         <img src="${comic.thumbnail.path}.jpg"></img>
-//         <div>
-//         <div class="info-portada">${comic.title}<div>
-//         </div>
-//         </article>
-        
-//         `
-//     })
-   
-// })
 
 let offset = 0
 
@@ -52,19 +30,59 @@ const buscarComics = () => {
     seccion.innerHTML = ""
     comics.map((comic) => {
       seccion.innerHTML += `
-      <article class="tarjeta-comic">
+      <article data-id=${comic.id} class="tarjeta-comic">
       <div class="portada-comic">
-        <img src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
+        <img data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
       </div>
-      <h3 class="comic-title">${comic.title}</h3>
+      <h3 data-id=${comic.id} class="comic-title">${comic.title}</h3>
       </article>        
               `
     })
+    let articles = document.querySelectorAll("article")
+    
+    
+     for(let i=0; i<20;i++){
+       articles[i].addEventListener('click',verComic)
+     }
     
   })
 }
 
 buscarComics()
+
+////// VER DETALLE DEL COMIC
+
+
+const verComic=(e)=>{
+
+  //console.log(e.target.dataset.id)
+  fetch(`https://gateway.marvel.com/v1/public/comics/${e.target.dataset.id}?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset= ${paginaActual * comicsPorPagina}`)
+    .then((res) => {
+      return res.json()
+    })
+    .then((data) => {
+     let comic =data.data.results[0]
+      const seccion = document.querySelector("#comics")
+      seccion.innerHTML = ""
+      seccion.innerHTML=`
+        <article class="tarjeta-comic">
+        <div class="portada-comic">
+        <img src="${comic.thumbnail.path}.jpg"></img>
+        <div>
+        <div class="info-portada">${comic.title}<div>
+        </div>
+        <div>Publicado: ${comic.dates[0].date}<div>
+        </div>
+        <div>Guionistas: ${comic.creators.items[0].name}<div>
+        </div>
+        <div> Descripción: ${comic.description}<div>
+        </div>
+        </article>
+  
+      `
+      
+})
+}
 
 // const buscarPersonajes = () => {
 //   console.log("buscando personajes...")
@@ -142,3 +160,5 @@ const paginado = () => {
 }
 
 paginado()
+
+
