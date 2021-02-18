@@ -64,8 +64,9 @@ button {
 }
 
 .contenedor-seccion-principal .seccion-principal {
-  width: 1300px;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
+  margin: 30px;
 }
 
 .formulario {
@@ -111,6 +112,28 @@ input, select {
 
 .resultados {
   padding-top: 80px;
+}
+
+#comics {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+#comics article {
+  width: 200px;
+  height: 300px;
+  margin: 50px;
+}
+#comics article .portada-comic {
+  width: 100%;
+}
+#comics article img {
+  width: 100%;
+  height: auto;
+}
+#comics .info-portada {
+  text-align: center;
+  margin: 0;
 }
 
 .contenedor-boton-buscar {
@@ -171,6 +194,14 @@ input, select {
   font-size: 20px;
   text-align: center;
   margin: 0;
+}
+
+.botones-comics {
+  margin-top: 10%;
+}
+
+.hidden {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */
