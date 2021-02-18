@@ -31,61 +31,74 @@
                     <div class="contenedor-form-busqueda elemento-form">
                         
                         <div class="contenedor-busqueda" class="boton-buscar">
-                            <input id="buscar-productos" type="text" placeholder="Search comics" />
+                            <input type="text" id="buscar-productos" type="text" placeholder="Search comics" />
                             <i class="fas fa-search" aria-label="Magnifier icon"></i>
                         </div>
                     </div>
                         <div class="contenedor-botones-busqueda">
-                            <p class="botones-busqueda elemento-form">TYPE</p>
-                                <select id="tipo" placeholder="tipo">
-                                    <option value="">COMICS</option>
-                                    <option value="zapato">CHARACTERS</option>
+                            <label for="tipo" class="botones-busqueda elemento-form">TYPE</label>
+                                <select id="tipo" name="tipo" placeholder="tipo">
+                                    <option value="comics">COMICS</option>
+                                    <option value="characters">CHARACTERS</option>
                                 </select>
                         </div>
                         <div class="contenedor-botones-busqueda">
-                            <p class="botones-busqueda elemento-form">ORDER</p>
-                            <select id="orden" placeholder="orden">
-                                <option value="az">A-Z</option>
-                                <option value="za">Z-A</option>
-                                <option value="nuevos">Newer</option>
-                                <option value="viejos">Older</option>
+                        
+                            <label for="orden" class="botones-busqueda elemento-form">ORDER</label>
+                            <select id="orden" name="orden" placeholder="orden">
+    
                             </select>
+                    
+                
                         </div>
+                            
                         <div class="contenedor-boton-buscar">
-                            <button class="boton-buscar">SEARCH</button>
+                            <button type="button" class="boton-buscar">SEARCH</button>
                         </div>
                         
                 </form>
                
-                <!-- <form class="formulario-principal" name="form-princ">
-                    
-                    <div class="contenedor-form-busqueda">
-                        <h3 class="buscar">Search</h3>
-                        <div class="contenedor-busqueda" class="boton-buscar">
-                            <input type="text" placeholder="Search comics" id="buscar-productos">
-                            <i class="fas fa-search" aria-label="Magnifier icon"></i>
-                        </div>
-                    </div>
-                </form> -->
+            
         <!-- Fin seccion busqueda --> 
         <!-- Comienza seccion comics -->
                 <div>
                     <h3 class="resultados">Results</h3>
                     <p class="cantidad-resultados"><span class="cantidad-mostrada">0</span> RESULTS</p>
                 </div>    
+
+                <section class="comic-section hidden">
+                    <img src="" alt="" class="comic-cover">
+                    <div class="comic-details">
+                      <h2 class="comic-title"></h2>
+                      <h3>Publicado:</h3>
+                      <p class="comic-published"></p>
+                      <h3>Guionistas:</h3>
+                      <p class="comic-writers"></p>
+                      <h3>Descripción:</h3>
+                      <p class="comic-description"></p>
+                    </div>
+                  </section>
+                  <section class="character-section hidden">
+                    <img src="" alt="" class="character-portrait">
+                    <div class="character-details">
+                      <h2 class="character-name"></h2>
+                      <p class="character-description"></p>
+                    </div>
+                  </section>
+          
                     
                 <section id="comics">
-                 
-
+                   
 
                 </section>
+                <section class="section-characters"></section>
                     
                     
                 <div class="botones-comics">
-                    <button type="button" class="primera-pagina boton-comic" aria-label="First page" >
+                    <button type="button" class="primera-pagina boton-comic" aria-label="First page" disabled>
                     <i class="fas fa-angle-double-left" ></i>
                     </button>
-                    <button type="button" class="previa-pagina boton-comic" aria-label="Previous page">
+                    <button type="button" class="previa-pagina boton-comic" aria-label="Previous page" disabled>
                     <i class="fas fa-angle-left" ></i>
                     </button>
                     <button type="button" class="proxima-pagina boton-comic" aria-label="Next page">

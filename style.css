@@ -200,4 +200,8 @@ input, select {
   margin-top: 10%;
 }
 
+.hidden {
+  display: none;
+}
+
 /*# sourceMappingURL=style.css.map */
