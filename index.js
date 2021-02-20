@@ -95,45 +95,20 @@ obtenerNombresDeGuionistas = (comic) => {
   })
 
   if (escritores.length === 0) {
-    nombresGuionistas = "sin informacion"
+    nombresGuionistas = "sin información"
 
   } else {
 
     escritores.forEach((escritor) => {
-      nombresGuionistas += escritor.name+" "
+      nombresGuionistas += escritor.name+", "
     })
+    nombresGuionistas = nombresGuionistas.substring(0,nombresGuionistas.length-2)
 
   }
-  nombresGuionistas = nombresGuionistas.substring(0,nombresGuionistas.length-1)
+
   return nombresGuionistas;
 
 }
-
-// const buscarPersonajes = () => {
-//   console.log("buscando personajes...")
-//   fetch(`https://gateway.marvel.com/v1/public/characters?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset=${paginaActual * comicsPorPagina}`)
-//   .then((res) => {
-//     return res.json()
-//   })
-//   .then((data) => {
-//     console.log(data)
-//     personajes = data.data.results
-//     const seccionPersonajes = document.querySelector(".section-characters")
-//     seccionPersonajes.innerHTML = ""
-//     comics.map((personaje) => {
-//       seccionPersonajes.innerHTML += `<div class="character-img-container">
-//               <img src="${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}" alt="" class="character-thumbnail" />
-//             </div>
-//             <div class="character-name-container">
-//               <h3 class="character-name">${character.name}</h3>
-//             </div>
-//               `
-//     })
-
-//   })
-// }
-
-// buscarPersonajes()
 
 
 ////////////// CONEXION PARA CAMBIO DE PAGINA
