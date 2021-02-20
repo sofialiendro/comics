@@ -164,8 +164,12 @@ article{
     }
 }
 .info-portada{
-    text-align: center;
+  
     margin:0;
+    margin-left: 100px;
+    width: 100%;
+    font-size: 30px;
+    width: 800px;
 }
 }
 
@@ -248,6 +252,11 @@ article{
 .botones-comics {
     margin-top:10%;
 }
+
+.info-comic {
+    display: flex;
+}
+
 
 
 .hidden {

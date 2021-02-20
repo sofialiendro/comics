@@ -132,8 +132,11 @@ input, select {
   height: auto;
 }
 #comics .info-portada {
-  text-align: center;
   margin: 0;
+  margin-left: 100px;
+  width: 100%;
+  font-size: 30px;
+  width: 800px;
 }
 
 .contenedor-boton-buscar {
@@ -198,6 +201,10 @@ input, select {
 
 .botones-comics {
   margin-top: 10%;
+}
+
+.info-comic {
+  display: flex;
 }
 
 .hidden {

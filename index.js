@@ -68,16 +68,16 @@ const verComic = (e) => {
       seccion.innerHTML = ""
       seccion.innerHTML = `
         <article class="tarjeta-comic">
-        <div class="portada-comic">
+        <div class="portada-comic info-comic">
         <img src="${comic.thumbnail.path}.jpg"></img>
         <div>
-        <div class="info-portada">${comic.title}<div>
+        <strong><div class="info-portada">${comic.title}<div></strong>
         </div>
-        <div>Publicado: ${comic.dates[0].date}<div>
+        <strong><div>Publishing Date:</strong> ${comic.dates[0].date}<div>
         </div>
-        <div>Guionistas: ${obtenerNombresDeGuionistas(comic)}<div>
+        <strong><div>Writers:</strong> ${obtenerNombresDeGuionistas(comic)}<div>
         </div>
-        <div> Descripción: ${comic.description}<div>
+        <strong><div> Description:</strong> ${comic.description}<div>
         </div>
         </article>
   
