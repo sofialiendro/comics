@@ -13,7 +13,7 @@ const seccion = document.querySelector("#comics")
 const URLbase = 'https://gateway.marvel.com/v1/public'
 const comicPortadas = document.querySelectorAll(".imagen-comic")
 const comicsPorPagina = 20;
-const seccionPersonajes = document.querySelector(".character-section")
+
 
 
 //////// CONEXION 
@@ -91,7 +91,7 @@ const verComic = (e) => {
         <strong><div> Description:</strong> ${comic.description}<div>
         </div>
         </article>
-  
+
       `
 
     })
@@ -120,25 +120,6 @@ obtenerNombresDeGuionistas = (comic) => {
   return nombresGuionistas;
 
 }
-
-
-const mostrarSeccionPersonajes = () => {
-
-
-  for (let comicPortada of comicPortadas) {
-    if (comicPortada.onclick) {
-      botonPrimera.disabled = true;
-        botonPrevio.disabled = true;
-        botonUltima.disabled = true;
-        botonProx.disabled = true;
-        seccionPersonajes.classList.remove("hidden");
-    }
-  }
-
-}
-mostrarSeccionPersonajes()
-
-
 
 
 ////////////// CONEXION PARA CAMBIO DE PAGINA
