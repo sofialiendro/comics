@@ -187,14 +187,14 @@ const verPersonajes = (e) => {
 
 /////////// FILTROS
 
-const hideDetails = () => {
-  $('#comics').classList.add('hidden')
+const noMostrar = () => {
+  seccion.classList.add('hidden')
   $('.section-characters').classList.add('hidden')
 }
 
 
-const search = () => {
-  hideDetails()
+const busqueda = () => {
+  noMostrar()
 
   if ($('#tipo').value === 'comics') {
     buscarComics()
@@ -205,13 +205,13 @@ const search = () => {
   }
 }
 
-const updateSortDropdown = () => {
+const actualizarFiltros = () => {
   if ($('#tipo').value === 'comics') {
     $('#orden').innerHTML = `                  
       <option value="title">A-Z</option>
       <option value="-title">Z-A</option>
-      <option value="-focDate">Más nuevos</option>
-      <option value="focDate">Más viejos</option>
+      <option value="-focDate">Newer</option>
+      <option value="focDate">Older</option>
     `
   }
   if ($('#tipo').value === 'characters') {
@@ -222,20 +222,20 @@ const updateSortDropdown = () => {
   }
 }
 
-const initialize = () => {
+const iniciar = () => {
   $('.boton-buscar').onclick = () => {
-    search()
-    paginadoPersonajes(search)
+    busqueda()
+    paginadoPersonajes(busqueda)
   }
 
-  $('#tipo').onchange = updateSortDropdown
+  $('#tipo').onchange = actualizarFiltros
 
-  updateSortDropdown()
-  paginadoPersonajes(search)
-  search()
+  actualizarFiltros()
+  paginadoPersonajes(busqueda)
+  busqueda()
 }
 
-window.onload = initialize
+window.onload = iniciar
 
 
 
@@ -338,16 +338,7 @@ const paginadoPersonajes = () => {
 
 }
 
-///// PERSONAJES
+////////// RESULTADOS
 
-// const agregarPersonajesConComics = () => {
-//   seccionPersonajes.innerHTML = `
-//   <img src="" alt="" class="character-portrait">
-//   <div class="character-details">
-//     <h2 class="character-name">LALALALA</h2>
-//     <p class="character-description"></p>
-//   </div>
 
-//   `
-// }
 
