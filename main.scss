@@ -138,6 +138,9 @@ input, select {
         padding-top: 40px;
 }
 
+
+
+
 .resultados {
     padding-top: 80px;
 }
@@ -155,7 +158,11 @@ article{
 
     .portada-comic{
     width: 100%;
+    cursor: pointer;
    
+    }
+    .portada-comic:hover {
+        transform: translateY(-10px);
     }
 
     img{

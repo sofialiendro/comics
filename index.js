@@ -11,7 +11,9 @@ const $ = (query) => document.querySelector(query)
 const ApiKey = "4d140645edcdb0c22d45f34f5fd8098a";
 const seccion = document.querySelector("#comics")
 const URLbase = 'https://gateway.marvel.com/v1/public'
+const comicPortadas = document.querySelectorAll(".imagen-comic")
 const comicsPorPagina = 20;
+const seccionPersonajes = document.querySelector(".character-section")
 
 
 //////// CONEXION 
@@ -32,7 +34,7 @@ const buscarComics = () => {
         seccion.innerHTML += `
       <article data-id=${comic.id} class="tarjeta-comic">
       <div class="portada-comic">
-        <img data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
+        <img class="imagen-comic" data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
       </div>
       <h3 data-id=${comic.id} class="comic-title">${comic.title}</h3>
       </article>`
@@ -40,14 +42,23 @@ const buscarComics = () => {
 
       let articles = Array.from(document.getElementsByClassName("tarjeta-comic"))
 
-      articles.forEach((article) => {
-        article.addEventListener('click', verComic)
-      })
+      const clickComics = () => {
 
+      
+        articles.forEach((article) => {
+          article.addEventListener('click', verComic)
+
+        })
+      }
+      clickComics()
+      
     })
 }
 
+
 buscarComics()
+
+  
 
 ////// VER DETALLE DEL COMIC
 
@@ -95,7 +106,7 @@ obtenerNombresDeGuionistas = (comic) => {
   })
 
   if (escritores.length === 0) {
-    nombresGuionistas = "sin información"
+    nombresGuionistas = "No information"
 
   } else {
 
@@ -109,6 +120,25 @@ obtenerNombresDeGuionistas = (comic) => {
   return nombresGuionistas;
 
 }
+
+
+const mostrarSeccionPersonajes = () => {
+
+
+  for (let comicPortada of comicPortadas) {
+    if (comicPortada.onclick) {
+      botonPrimera.disabled = true;
+        botonPrevio.disabled = true;
+        botonUltima.disabled = true;
+        botonProx.disabled = true;
+        seccionPersonajes.classList.remove("hidden");
+    }
+  }
+
+}
+mostrarSeccionPersonajes()
+
+
 
 
 ////////////// CONEXION PARA CAMBIO DE PAGINA
@@ -161,4 +191,16 @@ const paginado = () => {
 
 paginado()
 
+///// PERSONAJES
+
+// const agregarPersonajesConComics = () => {
+//   seccionPersonajes.innerHTML = `
+//   <img src="" alt="" class="character-portrait">
+//   <div class="character-details">
+//     <h2 class="character-name">LALALALA</h2>
+//     <p class="character-description"></p>
+//   </div>
+
+//   `
+// }
 

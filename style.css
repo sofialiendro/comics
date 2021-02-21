@@ -126,6 +126,10 @@ input, select {
 }
 #comics article .portada-comic {
   width: 100%;
+  cursor: pointer;
+}
+#comics article .portada-comic:hover {
+  transform: translateY(-10px);
 }
 #comics article img {
   width: 100%;
