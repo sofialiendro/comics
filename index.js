@@ -14,7 +14,7 @@ const URLbase = 'https://gateway.marvel.com/v1/public'
 const comicPortadas = document.querySelectorAll(".imagen-comic")
 const comicsPorPagina = 20;
 
-
+const formulario = document.querySelector(".formulario")
 
 //////// CONEXION 
 
@@ -121,6 +121,125 @@ obtenerNombresDeGuionistas = (comic) => {
 
 }
 
+const buscarPersonajes = () => {
+  console.log("buscando personajes...")
+  fetch(`https://gateway.marvel.com/v1/public/characters?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset=${paginaActual * comicsPorPagina}`)
+    .then((res) => {
+      return res.json()
+    })
+    .then((data) => {
+      console.log(data)
+      personajes = data.data.results
+      const seccionPersonajes = document.querySelector("#comics")
+      seccion.innerHTML = ""
+      personajes.map((personaje) => { 
+        seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
+        <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+            alt="">
+        <div class="background-char-title">
+            <p class="character-title">${personaje.name}</p>
+        </div>
+      </article>`
+
+      })
+
+      let articlesPersonajes = Array.from(document.getElementsByClassName("character-article"))
+
+      const clickPersonajes = () => {
+
+      
+        articlesPersonajes.forEach((articlePersonajes) => {
+          articlePersonajes.addEventListener('click', verPersonajes)
+
+        })
+      }
+      clickPersonajes()
+      
+    })
+}
+
+
+const verPersonajes = (e) => {
+
+  
+  fetch(`https://gateway.marvel.com/v1/public/characters/${e.target.dataset.id}?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset= ${paginaActual * comicsPorPagina}`)
+    .then((res) => {
+      return res.json()
+    })
+    .then((data) => {
+      let personaje = data.data.results[0]
+
+      
+
+      const seccionPersonajes = document.querySelector(".section-characters")
+      seccionPersonajes.innerHTML = ""
+      seccionPersonajes.innerHTML = `<article class="character-article" data-id="${character.id}">
+      <img class="comic-thumbnail" src="${character.thumbnail.path}.${character.thumbnail.extension}"
+          alt="">
+      <div class="background-char-title">
+          <p class="character-title">${character.name}</p>
+      </div>
+    </article>`
+
+    })
+}
+
+
+/////////// FILTROS
+
+const hideDetails = () => {
+  $('#comics').classList.add('hidden')
+  $('.section-characters').classList.add('hidden')
+}
+
+
+const search = () => {
+  hideDetails()
+
+  if ($('#tipo').value === 'comics') {
+    buscarComics()
+  }
+
+  if ($('#tipo').value === 'characters') {
+    buscarPersonajes()
+  }
+}
+
+const updateSortDropdown = () => {
+  if ($('#tipo').value === 'comics') {
+    $('#orden').innerHTML = `                  
+      <option value="title">A-Z</option>
+      <option value="-title">Z-A</option>
+      <option value="-focDate">Más nuevos</option>
+      <option value="focDate">Más viejos</option>
+    `
+  }
+  if ($('#tipo').value === 'characters') {
+    $('#orden').innerHTML = `                  
+      <option value="name">A-Z</option>
+      <option value="-name">Z-A</option>
+    `
+  }
+}
+
+const initialize = () => {
+  $('.boton-buscar').onclick = () => {
+    search()
+    paginadoPersonajes(search)
+  }
+
+  $('#tipo').onchange = updateSortDropdown
+
+  updateSortDropdown()
+  paginadoPersonajes(search)
+  search()
+}
+
+window.onload = initialize
+
+
+
+
 
 ////////////// CONEXION PARA CAMBIO DE PAGINA
 
@@ -171,6 +290,53 @@ const paginado = () => {
 }
 
 paginado()
+
+
+const paginadoPersonajes = () => {
+
+
+  botonProx.onclick = () => {
+    paginaActual++
+    console.log("pagina actual", paginaActual)
+    botonPrimera.disabled = false;
+    botonPrevio.disabled = false;
+    buscarPersonajes(paginaActual)
+  }
+
+
+  botonPrevio.onclick = () => {
+    paginaActual--
+    console.log("pagina actual", paginaActual)
+    botonUltima.disabled = false;
+    botonProx.disabled = false;
+    buscarPersonajes(paginaActual)
+  }
+
+  botonPrimera.onclick = () => {
+
+    offset = 0;
+    paginaActual = 0;
+    console.log("vamos a la primera", paginaActual)
+    botonPrimera.disabled = true;
+    botonPrevio.disabled = true;
+    botonUltima.disabled = false;
+    botonProx.disabled = false;
+    buscarPersonajes(paginaActual)
+  }
+
+  botonUltima.onclick = () => {
+
+    offset = 74;
+    paginaActual = 74;
+    console.log("vamos a la ultima", paginaActual)
+    botonUltima.disabled = true;
+    botonProx.disabled = true;
+    botonPrimera.disabled = false;
+    botonPrevio.disabled = false;
+    buscarPersonajes(paginaActual)
+  }
+
+}
 
 ///// PERSONAJES
 
