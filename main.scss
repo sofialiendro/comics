@@ -138,6 +138,9 @@ input, select {
         padding-top: 40px;
 }
 
+
+
+
 .resultados {
     padding-top: 80px;
 }
@@ -155,7 +158,11 @@ article{
 
     .portada-comic{
     width: 100%;
+    cursor: pointer;
    
+    }
+    .portada-comic:hover {
+        transform: translateY(-10px);
     }
 
     img{
@@ -164,8 +171,12 @@ article{
     }
 }
 .info-portada{
-    text-align: center;
+  
     margin:0;
+    margin-left: 100px;
+    width: 100%;
+    font-size: 30px;
+    width: 800px;
 }
 }
 
@@ -248,6 +259,11 @@ article{
 .botones-comics {
     margin-top:10%;
 }
+
+.info-comic {
+    display: flex;
+}
+
 
 
 .hidden {
