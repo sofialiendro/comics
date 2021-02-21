@@ -44,21 +44,21 @@ const buscarComics = () => {
 
       const clickComics = () => {
 
-      
+
         articles.forEach((article) => {
           article.addEventListener('click', verComic)
 
         })
       }
       clickComics()
-      
+
     })
 }
 
 
 buscarComics()
 
-  
+
 
 ////// VER DETALLE DEL COMIC
 
@@ -73,7 +73,7 @@ const verComic = (e) => {
     .then((data) => {
       let comic = data.data.results[0]
 
-      
+
 
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
@@ -111,9 +111,9 @@ obtenerNombresDeGuionistas = (comic) => {
   } else {
 
     escritores.forEach((escritor) => {
-      nombresGuionistas += escritor.name+", "
+      nombresGuionistas += escritor.name + ", "
     })
-    nombresGuionistas = nombresGuionistas.substring(0,nombresGuionistas.length-2)
+    nombresGuionistas = nombresGuionistas.substring(0, nombresGuionistas.length - 2)
 
   }
 
@@ -132,7 +132,7 @@ const buscarPersonajes = () => {
       personajes = data.data.results
       const seccionPersonajes = document.querySelector("#comics")
       seccion.innerHTML = ""
-      personajes.map((personaje) => { 
+      personajes.map((personaje) => {
         seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
         <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
             alt="">
@@ -145,23 +145,20 @@ const buscarPersonajes = () => {
 
       let articlesPersonajes = Array.from(document.getElementsByClassName("character-article"))
 
-      const clickPersonajes = () => {
 
-      
         articlesPersonajes.forEach((articlePersonajes) => {
           articlePersonajes.addEventListener('click', verPersonajes)
 
         })
-      }
-      clickPersonajes()
-      
+   
+
     })
 }
 
 
 const verPersonajes = (e) => {
 
-  
+
   fetch(`https://gateway.marvel.com/v1/public/characters/${e.target.dataset.id}?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset= ${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
@@ -169,15 +166,15 @@ const verPersonajes = (e) => {
     .then((data) => {
       let personaje = data.data.results[0]
 
-      
+
 
       const seccionPersonajes = document.querySelector(".section-characters")
       seccionPersonajes.innerHTML = ""
-      seccionPersonajes.innerHTML = `<article class="character-article" data-id="${character.id}">
-      <img class="comic-thumbnail" src="${character.thumbnail.path}.${character.thumbnail.extension}"
+      seccionPersonajes.innerHTML = `<article class="character-article" data-id="${personaje.id}">
+      <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
           alt="">
       <div class="background-char-title">
-          <p class="character-title">${character.name}</p>
+          <p class="character-title">${personaje.name}</p>
       </div>
     </article>`
 
@@ -192,17 +189,17 @@ const buscarComicPorTitulo = (titulo, orden) => {
     })
     .then((data) => {
       comics = data.data.results
-      
+
 
 
       if (orden === "az") {
         comics = ordenarAZ(comics)
       } else if (orden === "za") {
         comics = ordenarZA(comics)
-      } else if(orden === "nuevos") {
+      } else if (orden === "nuevos") {
         comics = ordenarMasNuevosAMasViejos(comics)
 
-      } else{
+      } else {
         comics = ordenarMasViejosAMasNuevos(comics)
       }
       const seccion = document.querySelector("#comics")
@@ -219,7 +216,7 @@ const buscarComicPorTitulo = (titulo, orden) => {
       })
 
     })
-  }
+}
 
 
 const ordenarAZ = (comics) => {
@@ -251,9 +248,9 @@ const ordenarZA = (comics) => {
   return comics
 }
 
-const ordenarMasNuevosAMasViejos=(comics)=>{
+const ordenarMasNuevosAMasViejos = (comics) => {
   comics = comics.sort((a, b) => {
-    if (a.dates[1].date> b.dates[1].date) {
+    if (a.dates[1].date > b.dates[1].date) {
       return -1;
     }
     if (a.dates[1].date < b.dates[1].date) {
@@ -265,9 +262,9 @@ const ordenarMasNuevosAMasViejos=(comics)=>{
   return comics
 
 }
-const ordenarMasViejosAMasNuevos=(comics)=>{
+const ordenarMasViejosAMasNuevos = (comics) => {
   comics = comics.sort((a, b) => {
-    if (a.dates[1].date> b.dates[1].date) {
+    if (a.dates[1].date > b.dates[1].date) {
       return 1;
     }
     if (a.dates[1].date < b.dates[1].date) {
@@ -283,6 +280,30 @@ const ordenarMasViejosAMasNuevos=(comics)=>{
 
 /////////// FILTROS
 
+
+// if (input != "") {
+//   if (tipo === "comics") {
+//   buscarComicPorTitulo(input,orden)
+
+//   }
+//   else {
+//     // buscarPersonajePorNombre(input,orden)
+//   }
+
+// }
+// else {
+//   if (tipo === "comics") {
+//     //buscarComics(orden)
+//   }
+//   else {
+//     //buscarPersonajes(orden)
+
+//   }
+// }
+
+
+// }
+
 const hideDetails = () => {
   $('#comics').classList.add('hidden')
   $('.section-characters').classList.add('hidden')
@@ -292,12 +313,29 @@ const hideDetails = () => {
 const search = () => {
   hideDetails()
 
-  if ($('#tipo').value === 'comics') {
-    buscarComics()
-  }
 
-  if ($('#tipo').value === 'characters') {
-    buscarPersonajes()
+  let tipo = $('#tipo').value
+  let orden = $('#orden').value
+  let input = $('#buscar-productos').value
+
+  if (input != "") {
+    if (tipo === "comics") {
+      buscarComicPorTitulo(input, orden)
+
+    }
+    else {
+      // buscarPersonajePorNombre(input,orden)
+    }
+  }
+  else {
+    if (tipo === "comics") {
+      buscarComics()
+    }
+    else {
+      buscarPersonajes()
+
+    }
+
   }
 }
 
@@ -446,4 +484,3 @@ const paginadoPersonajes = () => {
 
 //   `
 // }
-
