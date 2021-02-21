@@ -4,6 +4,7 @@
 $color-background: #fafafa;
 $color-header: #0c050a;
 $color-secundario: grey;
+$color-hover: rgb(233, 32, 172);
 
 
 %centrar-flex {
@@ -150,34 +151,60 @@ input, select {
     flex-wrap: wrap;
     justify-content:space-between;
 
-article{
-    width: 200px;
-    height: 300px;
-   margin: 50px;
-   
-
-    .portada-comic{
-    width: 100%;
-    cursor: pointer;
-   
+    .comic-principal:hover {
+            transform: translateY(-10px);
+            color: $color-hover;
+            
     }
-    .portada-comic:hover {
-        transform: translateY(-10px);
+    .comic-principal {
+        cursor: pointer;
     }
 
-    img{
+    article{
+        width: 200px;
+        height: 300px;
+        margin: 50px;
+
+        .portada-comic{
         width: 100%;
-        height: auto;
+    
+        }
+
+        img{
+            width: 100%;
+            height: auto;
+        }
+
+
+    }
+
+
+    .info-portada{
+    
+        margin:0;
+        margin-left: 100px;
+        width: 100%;
+        font-size: 30px;
+        width: 800px;
     }
 }
-.info-portada{
-  
-    margin:0;
-    margin-left: 100px;
-    width: 100%;
-    font-size: 30px;
-    width: 800px;
-}
+
+
+.character-article {
+
+        width:500px;
+
+        .tarjeta-personaje{
+            width: 100%;
+            cursor: pointer;
+        
+            }
+        .tarjeta-personaje:hover {
+            transform: translateY(-10px);
+            color: $color-hover;
+        }
+    
+
 }
 
 
@@ -264,6 +291,10 @@ article{
     display: flex;
 }
 
+.character-article {
+    overflow: hidden;
+    width: calc(100% / 6 - 2 * 10px);
+}
 
 
 .hidden {
