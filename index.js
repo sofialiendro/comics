@@ -185,6 +185,102 @@ const verPersonajes = (e) => {
 }
 
 
+const buscarComicPorTitulo = (titulo, orden) => {
+  fetch(`https://gateway.marvel.com:443/v1/public/comics?format=comic&titleStartsWith=${titulo}&apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset=${paginaActual * comicsPorPagina}`)
+    .then((res) => {
+      return res.json()
+    })
+    .then((data) => {
+      comics = data.data.results
+      
+
+
+      if (orden === "az") {
+        comics = ordenarAZ(comics)
+      } else if (orden === "za") {
+        comics = ordenarZA(comics)
+      } else if(orden === "nuevos") {
+        comics = ordenarMasNuevosAMasViejos(comics)
+
+      } else{
+        comics = ordenarMasViejosAMasNuevos(comics)
+      }
+      const seccion = document.querySelector("#comics")
+      seccion.innerHTML = ""
+      comics.map((comic) => {
+        seccion.innerHTML += `
+      <article class="tarjeta-comic">
+      <div class="portada-comic">
+        <img src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
+      </div>
+      <h3 class="comic-title">${comic.title}</h3>
+      </article>        
+              `
+      })
+
+    })
+  }
+
+
+const ordenarAZ = (comics) => {
+  comics = comics.sort((a, b) => {
+    if (a.title > b.title) {
+      return -1;
+    }
+    if (a.title < b.title) {
+      return 1;
+    }
+    return 0;
+
+  })
+  return comics
+}
+
+const ordenarZA = (comics) => {
+  comics = comics.sort((a, b) => {
+    if (a.title > b.title) {
+      return 1;
+    }
+    if (a.title < b.title) {
+      return -1;
+    }
+    return 0;
+
+  })
+
+  return comics
+}
+
+const ordenarMasNuevosAMasViejos=(comics)=>{
+  comics = comics.sort((a, b) => {
+    if (a.dates[1].date> b.dates[1].date) {
+      return -1;
+    }
+    if (a.dates[1].date < b.dates[1].date) {
+      return 1;
+    }
+    return 0;
+
+  })
+  return comics
+
+}
+const ordenarMasViejosAMasNuevos=(comics)=>{
+  comics = comics.sort((a, b) => {
+    if (a.dates[1].date> b.dates[1].date) {
+      return 1;
+    }
+    if (a.dates[1].date < b.dates[1].date) {
+      return -1;
+    }
+    return 0;
+
+  })
+  return comics
+
+}
+
+
 /////////// FILTROS
 
 const hideDetails = () => {
