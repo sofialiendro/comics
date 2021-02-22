@@ -134,10 +134,10 @@ const buscarPersonajes = () => {
       seccion.innerHTML = ""
       personajes.map((personaje) => {
         seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
-        <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+        <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
             alt="">
         <div class="background-char-title">
-            <p class="character-title">${personaje.name}</p>
+            <p data-id="${personaje.id}" class="character-title">${personaje.name}</p>
         </div>
       </article>`
 
@@ -165,16 +165,18 @@ const verPersonajes = (e) => {
     })
     .then((data) => {
       let personaje = data.data.results[0]
-
-
-
+      //Borro los demas personajes
+      const seccion= document.querySelector("#comics")
+      seccion.innerHTML = ""
+      //Agrego article de personaje seleccionado
       const seccionPersonajes = document.querySelector(".section-characters")
-      seccionPersonajes.innerHTML = ""
+     
       seccionPersonajes.innerHTML = `<article class="character-article" data-id="${personaje.id}">
       <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
           alt="">
       <div class="background-char-title">
           <p class="character-title">${personaje.name}</p>
+          
       </div>
     </article>`
 
@@ -190,13 +192,11 @@ const buscarComicPorTitulo = (titulo, orden) => {
     .then((data) => {
       comics = data.data.results
 
-
-
-      if (orden === "az") {
+      if (orden === "title") {
         comics = ordenarAZ(comics)
-      } else if (orden === "za") {
+      } else if (orden === "-title") {
         comics = ordenarZA(comics)
-      } else if (orden === "nuevos") {
+      } else if (orden === "-focDate") {
         comics = ordenarMasNuevosAMasViejos(comics)
 
       } else {
@@ -281,29 +281,6 @@ const ordenarMasViejosAMasNuevos = (comics) => {
 /////////// FILTROS
 
 
-// if (input != "") {
-//   if (tipo === "comics") {
-//   buscarComicPorTitulo(input,orden)
-
-//   }
-//   else {
-//     // buscarPersonajePorNombre(input,orden)
-//   }
-
-// }
-// else {
-//   if (tipo === "comics") {
-//     //buscarComics(orden)
-//   }
-//   else {
-//     //buscarPersonajes(orden)
-
-//   }
-// }
-
-
-// }
-
 const hideDetails = () => {
   $('#comics').classList.add('hidden')
   $('.section-characters').classList.add('hidden')
@@ -311,7 +288,7 @@ const hideDetails = () => {
 
 
 const search = () => {
-  hideDetails()
+  //hideDetails()
 
 
   let tipo = $('#tipo').value
