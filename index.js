@@ -9,12 +9,16 @@ const botonUltima = document.querySelector(".ultima-pagina");
 let paginaActual = 0;
 const $ = (query) => document.querySelector(query)
 const ApiKey = "4d140645edcdb0c22d45f34f5fd8098a";
-const seccion = document.querySelector("#comics")
+let seccion = document.querySelector("#comics")
 const URLbase = 'https://gateway.marvel.com/v1/public'
 const comicPortadas = document.querySelectorAll(".imagen-comic")
 const comicsPorPagina = 20;
-
+const personajesPorPagina = 20;
+const tarjetaComics = document.querySelectorAll(".tarjeta-comic")
 const formulario = document.querySelector(".formulario")
+const numeroResultadosMostrados = document.querySelector('.cantidad-mostrada')
+
+
 
 //////// CONEXION 
 
@@ -32,7 +36,7 @@ const buscarComics = () => {
       seccion.innerHTML = ""
       comics.map((comic) => {
         seccion.innerHTML += `
-      <article data-id=${comic.id} class="tarjeta-comic">
+      <article data-id=${comic.id} class="tarjeta-comic comic-principal">
       <div class="portada-comic">
         <img class="imagen-comic" data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
       </div>
@@ -51,8 +55,10 @@ const buscarComics = () => {
         })
       }
       clickComics()
+      contarComicsMostrados()
       
     })
+    
 }
 
 
@@ -130,14 +136,17 @@ const buscarPersonajes = () => {
     .then((data) => {
       console.log(data)
       personajes = data.data.results
-      const seccionPersonajes = document.querySelector("#comics")
-      seccion.innerHTML = ""
+      let seccionPersonajes = document.querySelector("#comics")
+
+      seccionPersonajes.innerHTML = ""
       personajes.map((personaje) => { 
         seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
-        <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
-            alt="">
-        <div class="background-char-title">
-            <p class="character-title">${personaje.name}</p>
+        <div class="tarjeta-personaje">
+          <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+              alt="">
+          <div class="background-char-title">
+              <h3 class="character-title">${personaje.name}</h3>
+          </div>
         </div>
       </article>`
 
@@ -154,30 +163,39 @@ const buscarPersonajes = () => {
         })
       }
       clickPersonajes()
+      contarPersonajesMostrados()
+     
       
     })
+    
+
 }
 
 
 const verPersonajes = (e) => {
 
   
-  fetch(`https://gateway.marvel.com/v1/public/characters/${e.target.dataset.id}?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset= ${paginaActual * comicsPorPagina}`)
+  fetch(`https://gateway.marvel.com/v1/public/characters/${e.target.dataset.id}?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset= ${paginaActual * personajesPorPagina}`)
     .then((res) => {
       return res.json()
     })
     .then((data) => {
-      let personaje = data.data.results[0]
+      let personaje = data.data.results[0];
 
       
 
-      const seccionPersonajes = document.querySelector(".section-characters")
+      let seccionPersonajes = document.querySelector("#comics")
       seccionPersonajes.innerHTML = ""
-      seccionPersonajes.innerHTML = `<article class="character-article" data-id="${character.id}">
-      <img class="comic-thumbnail" src="${character.thumbnail.path}.${character.thumbnail.extension}"
-          alt="">
-      <div class="background-char-title">
-          <p class="character-title">${character.name}</p>
+      seccionPersonajes.innerHTML = `<article class="character-article" data-id="${personaje.id}">
+      <div class="tarjeta-personaje">
+        <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+            alt="">
+        <div class="background-char-title">
+            <p class="character-title">${personaje.name}</p>
+        </div>
+        <div class="background-char-title">
+            <p class="character-title">${personaje.description}</p>
+        </div>
       </div>
     </article>`
 
@@ -185,7 +203,6 @@ const verPersonajes = (e) => {
 }
 
 
-/////////// FILTROS
 
 const noMostrar = () => {
   seccion.classList.add('hidden')
@@ -342,3 +359,12 @@ const paginadoPersonajes = () => {
 
 
 
+const contarComicsMostrados = () => {
+  
+  numeroResultadosMostrados.textContent = 48449
+}
+
+const contarPersonajesMostrados = () => {
+  
+  numeroResultadosMostrados.textContent = 1493
+}
