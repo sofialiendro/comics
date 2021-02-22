@@ -203,51 +203,7 @@ const verPersonajes = (e) => {
 }
 
 
-/////////// FILTROS
 
-
-// const busqueda = () => {
-
-//   if ($('#tipo').value === 'comics') {
-//     buscarComics()
-//   }
-
-//   if ($('#tipo').value === 'characters') {
-//     buscarPersonajes()
-//   }
-// }
-
-// const actualizarFiltros = () => {
-//   if ($('#tipo').value === 'comics') {
-//     $('#orden').innerHTML = `                  
-//       <option value="title">A-Z</option>
-//       <option value="-title">Z-A</option>
-//       <option value="-focDate">Más nuevos</option>
-//       <option value="focDate">Más viejos</option>
-//     `
-//   }
-//   if ($('#tipo').value === 'characters') {
-//     $('#orden').innerHTML = `                  
-//       <option value="name">A-Z</option>
-//       <option value="-name">Z-A</option>
-//     `
-//   }
-// }
-
-// const iniciar = () => {
-//   $('.boton-buscar').onclick = () => {
-//     busqueda()
-//     paginadoPersonajes(busqueda)
-//   }
-
-//   $('#tipo').onchange = actualizarFiltros
-
-//   actualizarFiltros()
-//   paginadoPersonajes(busqueda)
-//   busqueda()
-// }
-
-// window.onload = iniciar
 
 
 
@@ -351,8 +307,6 @@ const paginadoPersonajes = () => {
 }
 
 
-
-/////////// RESULTADOS
 
 
 const contarComicsMostrados = () => {
