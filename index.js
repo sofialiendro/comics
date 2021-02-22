@@ -19,7 +19,7 @@ const formulario = document.querySelector(".formulario")
 //////// CONEXION 
 
 
-const buscarComics = () => {
+const buscarComics = (orden) => {
   console.log("buscando comics...")
   fetch(`https://gateway.marvel.com/v1/public/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
@@ -28,6 +28,14 @@ const buscarComics = () => {
     .then((data) => {
       console.log(data)
       comics = data.data.results
+
+      if(orden==="title"){
+       comics= ordenarComicsAZ(comics)
+      }
+      else{
+        comics=ordenarComicsZA(comics)
+      }
+
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
       comics.map((comic) => {
@@ -54,11 +62,6 @@ const buscarComics = () => {
 
     })
 }
-
-
-buscarComics()
-
-
 
 ////// VER DETALLE DEL COMIC
 
@@ -121,7 +124,7 @@ obtenerNombresDeGuionistas = (comic) => {
 
 }
 
-const buscarPersonajes = () => {
+const buscarPersonajes = (orden) => {
   console.log("buscando personajes...")
   fetch(`https://gateway.marvel.com/v1/public/characters?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
@@ -130,6 +133,14 @@ const buscarPersonajes = () => {
     .then((data) => {
       console.log(data)
       personajes = data.data.results
+
+      if(orden==="name"){
+        personajes= ordenarPersonajesAZ(personajes)
+       }
+       else{
+         personajes=ordenarPersonajesZA(personajes)
+       }
+
       const seccionPersonajes = document.querySelector("#comics")
       seccion.innerHTML = ""
       personajes.map((personaje) => {
@@ -146,11 +157,11 @@ const buscarPersonajes = () => {
       let articlesPersonajes = Array.from(document.getElementsByClassName("character-article"))
 
 
-        articlesPersonajes.forEach((articlePersonajes) => {
-          articlePersonajes.addEventListener('click', verPersonajes)
+      articlesPersonajes.forEach((articlePersonajes) => {
+        articlePersonajes.addEventListener('click', verPersonajes)
 
-        })
-   
+      })
+
 
     })
 }
@@ -166,11 +177,11 @@ const verPersonajes = (e) => {
     .then((data) => {
       let personaje = data.data.results[0]
       //Borro los demas personajes
-      const seccion= document.querySelector("#comics")
+      const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
       //Agrego article de personaje seleccionado
       const seccionPersonajes = document.querySelector(".section-characters")
-     
+
       seccionPersonajes.innerHTML = `<article class="character-article" data-id="${personaje.id}">
       <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
           alt="">
@@ -185,7 +196,7 @@ const verPersonajes = (e) => {
 
 
 const buscarComicPorTitulo = (titulo, orden) => {
-  fetch(`https://gateway.marvel.com:443/v1/public/comics?format=comic&titleStartsWith=${titulo}&apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset=${paginaActual * comicsPorPagina}`)
+  fetch(`https://gateway.marvel.com:443/v1/public/comics?format=comic&titleStartsWith=${titulo}&apikey=4d140645edcdb0c22d45f34f5fd8098a&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
     })
@@ -193,9 +204,9 @@ const buscarComicPorTitulo = (titulo, orden) => {
       comics = data.data.results
 
       if (orden === "title") {
-        comics = ordenarAZ(comics)
+        comics = ordenarComicsAZ(comics)
       } else if (orden === "-title") {
-        comics = ordenarZA(comics)
+        comics = ordenarComicsZA(comics)
       } else if (orden === "-focDate") {
         comics = ordenarMasNuevosAMasViejos(comics)
 
@@ -218,14 +229,86 @@ const buscarComicPorTitulo = (titulo, orden) => {
     })
 }
 
+const buscarPersonajePorNombre = (nombre, orden) => {
+  fetch(`https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${nombre}&apikey=4d140645edcdb0c22d45f34f5fd8098a&offset=${paginaActual * comicsPorPagina}`)
+    .then((res) => {
+      return res.json()
+    })
+    .then((data) => {
+      let personajes = data.data.results
 
-const ordenarAZ = (comics) => {
-  comics = comics.sort((a, b) => {
-    if (a.title > b.title) {
+      if (orden === "name") {
+        personajes = ordenarPersonajesAZ(personajes)
+      } else {
+        personajes = ordenarPersonajesZA(personajes)
+      }
+
+      const seccion = document.querySelector("#comics")
+      seccion.innerHTML = ""
+      personajes.map((personaje) => {
+        seccion.innerHTML += `<article class="character-article" data-id="${personaje.id}">
+        <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+            alt="">
+        <div class="background-char-title">
+            <p data-id="${personaje.id}" class="character-title">${personaje.name}</p>
+            
+        </div>
+      </article>`
+
+        
+      })
+
+      let articlesPersonajes = Array.from(document.getElementsByClassName("character-article"))
+
+
+      articlesPersonajes.forEach((articlePersonajes) => {
+        articlePersonajes.addEventListener('click', verPersonajes)
+
+      })
+
+
+    })
+}
+
+const ordenarPersonajesAZ = (personajes) => {
+  personajes = personajes.sort((a, b) => {
+    if (a.name > b.name) {
       return -1;
     }
-    if (a.title < b.title) {
+    if (a.name < b.name) {
       return 1;
+    }
+    return 0;
+
+  })
+  return personajes
+}
+
+const ordenarPersonajesZA = (personajes) => {
+  personajes = personajes.sort((a, b) => {
+    if (a.name > b.name) {
+      return 1;
+    }
+    if (a.name< b.name) {
+      return -1;
+    }
+    return 0;
+
+  })
+
+  return personajes
+}
+
+
+
+
+const ordenarComicsAZ = (comics) => {
+  comics = comics.sort((a, b) => {
+    if (a.title > b.title) {
+      return 1;
+    }
+    if (a.title < b.title) {
+      return -1;
     }
     return 0;
 
@@ -233,13 +316,13 @@ const ordenarAZ = (comics) => {
   return comics
 }
 
-const ordenarZA = (comics) => {
+const ordenarComicsZA = (comics) => {
   comics = comics.sort((a, b) => {
     if (a.title > b.title) {
-      return 1;
+      return -1;
     }
     if (a.title < b.title) {
-      return -1;
+      return 1;
     }
     return 0;
 
@@ -301,15 +384,15 @@ const search = () => {
 
     }
     else {
-      // buscarPersonajePorNombre(input,orden)
+      buscarPersonajePorNombre(input, orden)
     }
   }
   else {
     if (tipo === "comics") {
-      buscarComics()
+      buscarComics(orden)
     }
     else {
-      buscarPersonajes()
+      buscarPersonajes(orden)
 
     }
 
@@ -336,13 +419,13 @@ const updateSortDropdown = () => {
 const initialize = () => {
   $('.boton-buscar').onclick = () => {
     search()
-    paginadoPersonajes(search)
+    paginadoPersonajes()
   }
 
   $('#tipo').onchange = updateSortDropdown
 
   updateSortDropdown()
-  paginadoPersonajes(search)
+  paginadoPersonajes()
   search()
 }
 
