@@ -13,7 +13,7 @@ const seccion = document.querySelector("#comics")
 const URLbase = 'https://gateway.marvel.com/v1/public'
 const comicPortadas = document.querySelectorAll(".imagen-comic")
 const comicsPorPagina = 20;
-
+const numeroResultadosMostrados = document.querySelector('.cantidad-mostrada')
 const formulario = document.querySelector(".formulario")
 
 //////// CONEXION 
@@ -44,7 +44,7 @@ const buscarComics = (orden) => {
       </article>`
       })
       agregarEventoClick("tarjeta-comic",verComic)
-
+      contarComicsMostrados()
     })
 }
 
@@ -54,7 +54,7 @@ const agregarEventoClick=(clase,funcion)=>{
     article.addEventListener('click', funcion)
 
   })
-
+  
 
 
 }
@@ -173,7 +173,7 @@ const buscarPersonajes = (orden) => {
       })
 
       agregarEventoClick("character-article",verPersonajes)
-
+      contarPersonajesMostrados()
 
     })
 }
@@ -466,15 +466,14 @@ const paginadoPersonajes = () => {
 
 }
 
-///// PERSONAJES
+////////// RESULTADOS
 
-// const agregarPersonajesConComics = () => {
-//   seccionPersonajes.innerHTML = `
-//   <img src="" alt="" class="character-portrait">
-//   <div class="character-details">
-//     <h2 class="character-name">LALALALA</h2>
-//     <p class="character-description"></p>
-//   </div>
+const contarComicsMostrados = () => {
+  
+  numeroResultadosMostrados.textContent = 48449
+}
 
-//   `
-// }
+const contarPersonajesMostrados = () => {
+  
+  numeroResultadosMostrados.textContent = 1493
+}
