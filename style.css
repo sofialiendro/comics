@@ -159,6 +159,10 @@ input, select {
   color: #e920ac;
 }
 
+.imagen-tamaño {
+  width: 300px;
+}
+
 .contenedor-boton-buscar {
   display: flex;
   justify-content: space-between;

@@ -104,17 +104,19 @@ const verComic = (e) => {
 
         personajes.map((personaje) => {
           seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
-          <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+          <div class="imagen-comic-personaje">
+          <img data-id="${personaje.id}" class="comic-thumbnail imagen-tamaño" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
               alt="">
           <div class="background-char-title">
               <h3 data-id="${personaje.id}" class="character-title">${personaje.name}</h3>
+          </div>
           </div>
         </article>`
   
         })
   
         agregarEventoClick("character-article",verPersonajes)
-     
+        deshabilitarPaginado()
 
       })
     
@@ -122,6 +124,13 @@ const verComic = (e) => {
    })
   
 
+}
+
+const deshabilitarPaginado = () => {
+  botonUltima.disabled = true;
+    botonProx.disabled = true;
+    botonPrimera.disabled = true;
+    botonPrevio.disabled = true;
 }
 
 obtenerNombresDeGuionistas = (comic) => {
@@ -198,8 +207,8 @@ const verPersonajes = (e) => {
       const seccionPersonajes = document.querySelector(".section-characters")
 
       seccionPersonajes.innerHTML = `<article class="character-article" data-id="${personaje.id}">
-      <div class="tarjeta-personaje">
-      <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+      <div class="">
+      <img class="comic-thumbnail imagen-tamaño" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
           alt="">
       <div class="background-char-title">
           <h3 class="character-title">${personaje.name}</h3>
@@ -221,7 +230,7 @@ const verPersonajes = (e) => {
         comics.map((comic) => {
           seccion.innerHTML += `
         <article data-id=${comic.id} class="tarjeta-comic comic-principal">
-        <div class="portada-comic">
+        <div class="">
           <img data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
         </div>
         <h3 data-id=${comic.id} class="comic-title">${comic.title}</h3>
@@ -230,7 +239,7 @@ const verPersonajes = (e) => {
         })
   
         agregarEventoClick("tarjeta-comic",verComic)
-     
+        deshabilitarPaginado()
 
       })
     })
