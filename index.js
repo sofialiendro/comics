@@ -21,7 +21,7 @@ const formulario = document.querySelector(".formulario")
 
 const buscarComics = (orden) => {
   console.log("buscando comics...")
-  fetch(`https://gateway.marvel.com/v1/public/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset=${paginaActual * comicsPorPagina}`)
+  fetch(`https://gateway.marvel.com/v1/public/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=${orden}&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
     })
@@ -29,12 +29,8 @@ const buscarComics = (orden) => {
       console.log(data)
       comics = data.data.results
 
-      if(orden==="title"){
-       comics= ordenarComicsAZ(comics)
-      }
-      else{
-        comics=ordenarComicsZA(comics)
-      }
+      const seccionPersonajes = document.querySelector(".section-characters")
+      seccionPersonajes.innerHTML= ""
 
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
@@ -47,20 +43,20 @@ const buscarComics = (orden) => {
       <h3 data-id=${comic.id} class="comic-title">${comic.title}</h3>
       </article>`
       })
-
-      let articles = Array.from(document.getElementsByClassName("tarjeta-comic"))
-
-      const clickComics = () => {
-
-
-        articles.forEach((article) => {
-          article.addEventListener('click', verComic)
-
-        })
-      }
-      clickComics()
+      agregarEventoClick("tarjeta-comic",verComic)
 
     })
+}
+
+const agregarEventoClick=(clase,funcion)=>{
+  let articles = Array.from(document.getElementsByClassName(clase))
+  articles.forEach((article) => {
+    article.addEventListener('click', funcion)
+
+  })
+
+
+
 }
 
 ////// VER DETALLE DEL COMIC
@@ -126,21 +122,15 @@ obtenerNombresDeGuionistas = (comic) => {
 
 const buscarPersonajes = (orden) => {
   console.log("buscando personajes...")
-  fetch(`https://gateway.marvel.com/v1/public/characters?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset=${paginaActual * comicsPorPagina}`)
+  fetch(`https://gateway.marvel.com/v1/public/characters?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=${orden}&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
     })
     .then((data) => {
       console.log(data)
       personajes = data.data.results
-
-      if(orden==="name"){
-        personajes= ordenarPersonajesAZ(personajes)
-       }
-       else{
-         personajes=ordenarPersonajesZA(personajes)
-       }
-
+     
+      
       const seccionPersonajes = document.querySelector("#comics")
       seccion.innerHTML = ""
       personajes.map((personaje) => {
@@ -154,13 +144,7 @@ const buscarPersonajes = (orden) => {
 
       })
 
-      let articlesPersonajes = Array.from(document.getElementsByClassName("character-article"))
-
-
-      articlesPersonajes.forEach((articlePersonajes) => {
-        articlePersonajes.addEventListener('click', verPersonajes)
-
-      })
+      agregarEventoClick("character-article",verPersonajes)
 
 
     })
@@ -179,6 +163,7 @@ const verPersonajes = (e) => {
       //Borro los demas personajes
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
+
       //Agrego article de personaje seleccionado
       const seccionPersonajes = document.querySelector(".section-characters")
 
@@ -196,52 +181,45 @@ const verPersonajes = (e) => {
 
 
 const buscarComicPorTitulo = (titulo, orden) => {
-  fetch(`https://gateway.marvel.com:443/v1/public/comics?format=comic&titleStartsWith=${titulo}&apikey=4d140645edcdb0c22d45f34f5fd8098a&offset=${paginaActual * comicsPorPagina}`)
+  fetch(`https://gateway.marvel.com:443/v1/public/comics?format=comic&titleStartsWith=${titulo}&orderBy=${orden}&apikey=4d140645edcdb0c22d45f34f5fd8098a&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
     })
     .then((data) => {
       comics = data.data.results
 
-      if (orden === "title") {
-        comics = ordenarComicsAZ(comics)
-      } else if (orden === "-title") {
-        comics = ordenarComicsZA(comics)
-      } else if (orden === "-focDate") {
-        comics = ordenarMasNuevosAMasViejos(comics)
+      const seccionPersonajes = document.querySelector(".section-characters")
+      seccionPersonajes.innerHTML= ""
 
-      } else {
-        comics = ordenarMasViejosAMasNuevos(comics)
-      }
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
+      
       comics.map((comic) => {
         seccion.innerHTML += `
-      <article class="tarjeta-comic">
+      <article data-id=${comic.id} class="tarjeta-comic">
       <div class="portada-comic">
-        <img src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
+        <img data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
       </div>
-      <h3 class="comic-title">${comic.title}</h3>
+      <h3 data-id=${comic.id} class="comic-title">${comic.title}</h3>
       </article>        
               `
       })
+
+      agregarEventoClick("tarjeta-comic",verComic)
 
     })
 }
 
 const buscarPersonajePorNombre = (nombre, orden) => {
-  fetch(`https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${nombre}&apikey=4d140645edcdb0c22d45f34f5fd8098a&offset=${paginaActual * comicsPorPagina}`)
+  fetch(`https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${nombre}&orderBy=${orden}&apikey=4d140645edcdb0c22d45f34f5fd8098a&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
     })
     .then((data) => {
       let personajes = data.data.results
 
-      if (orden === "name") {
-        personajes = ordenarPersonajesAZ(personajes)
-      } else {
-        personajes = ordenarPersonajesZA(personajes)
-      }
+      const seccionPersonajes = document.querySelector(".section-characters")
+      seccionPersonajes.innerHTML= ""
 
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
@@ -254,110 +232,13 @@ const buscarPersonajePorNombre = (nombre, orden) => {
             
         </div>
       </article>`
-
         
       })
 
-      let articlesPersonajes = Array.from(document.getElementsByClassName("character-article"))
-
-
-      articlesPersonajes.forEach((articlePersonajes) => {
-        articlePersonajes.addEventListener('click', verPersonajes)
-
-      })
+      agregarEventoClick("character-article",verPersonajes)
 
 
     })
-}
-
-const ordenarPersonajesAZ = (personajes) => {
-  personajes = personajes.sort((a, b) => {
-    if (a.name > b.name) {
-      return -1;
-    }
-    if (a.name < b.name) {
-      return 1;
-    }
-    return 0;
-
-  })
-  return personajes
-}
-
-const ordenarPersonajesZA = (personajes) => {
-  personajes = personajes.sort((a, b) => {
-    if (a.name > b.name) {
-      return 1;
-    }
-    if (a.name< b.name) {
-      return -1;
-    }
-    return 0;
-
-  })
-
-  return personajes
-}
-
-
-
-
-const ordenarComicsAZ = (comics) => {
-  comics = comics.sort((a, b) => {
-    if (a.title > b.title) {
-      return 1;
-    }
-    if (a.title < b.title) {
-      return -1;
-    }
-    return 0;
-
-  })
-  return comics
-}
-
-const ordenarComicsZA = (comics) => {
-  comics = comics.sort((a, b) => {
-    if (a.title > b.title) {
-      return -1;
-    }
-    if (a.title < b.title) {
-      return 1;
-    }
-    return 0;
-
-  })
-
-  return comics
-}
-
-const ordenarMasNuevosAMasViejos = (comics) => {
-  comics = comics.sort((a, b) => {
-    if (a.dates[1].date > b.dates[1].date) {
-      return -1;
-    }
-    if (a.dates[1].date < b.dates[1].date) {
-      return 1;
-    }
-    return 0;
-
-  })
-  return comics
-
-}
-const ordenarMasViejosAMasNuevos = (comics) => {
-  comics = comics.sort((a, b) => {
-    if (a.dates[1].date > b.dates[1].date) {
-      return 1;
-    }
-    if (a.dates[1].date < b.dates[1].date) {
-      return -1;
-    }
-    return 0;
-
-  })
-  return comics
-
 }
 
 
