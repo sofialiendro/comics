@@ -298,14 +298,14 @@ const buscarPersonajePorNombre = (nombre, orden) => {
 /////////// FILTROS
 
 
-const hideDetails = () => {
+const ocultar = () => {
   $('#comics').classList.add('hidden')
   $('.section-characters').classList.add('hidden')
 }
 
 
 const search = () => {
-  //hideDetails()
+  //ocultar()
 
 
   let tipo = $('#tipo').value
