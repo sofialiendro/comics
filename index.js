@@ -36,7 +36,7 @@ const buscarComics = (orden) => {
       seccion.innerHTML = ""
       comics.map((comic) => {
         seccion.innerHTML += `
-      <article data-id=${comic.id} class="tarjeta-comic">
+      <article data-id=${comic.id} class="tarjeta-comic comic-principal">
       <div class="portada-comic">
         <img class="imagen-comic" data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
       </div>
@@ -107,7 +107,7 @@ const verComic = (e) => {
           <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
               alt="">
           <div class="background-char-title">
-              <p data-id="${personaje.id}" class="character-title">${personaje.name}</p>
+              <h3 data-id="${personaje.id}" class="character-title">${personaje.name}</h3>
           </div>
         </article>`
   
@@ -163,10 +163,12 @@ const buscarPersonajes = (orden) => {
       seccion.innerHTML = ""
       personajes.map((personaje) => {
         seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
+        <div class="tarjeta-personaje">
         <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
             alt="">
         <div class="background-char-title">
-            <p data-id="${personaje.id}" class="character-title">${personaje.name}</p>
+            <h3 data-id="${personaje.id}" class="character-title">${personaje.name}</h3>
+        </div>
         </div>
       </article>`
 
@@ -174,7 +176,7 @@ const buscarPersonajes = (orden) => {
 
       agregarEventoClick("character-article",verPersonajes)
       contarPersonajesMostrados()
-
+      
     })
 }
 
@@ -196,11 +198,13 @@ const verPersonajes = (e) => {
       const seccionPersonajes = document.querySelector(".section-characters")
 
       seccionPersonajes.innerHTML = `<article class="character-article" data-id="${personaje.id}">
+      <div class="tarjeta-personaje">
       <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
           alt="">
       <div class="background-char-title">
-          <p class="character-title">${personaje.name}</p>
+          <h3 class="character-title">${personaje.name}</h3>
           
+      </div>
       </div>
     </article>`
 
@@ -216,7 +220,7 @@ const verPersonajes = (e) => {
       
         comics.map((comic) => {
           seccion.innerHTML += `
-        <article data-id=${comic.id} class="tarjeta-comic">
+        <article data-id=${comic.id} class="tarjeta-comic comic-principal">
         <div class="portada-comic">
           <img data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
         </div>
@@ -249,7 +253,7 @@ const buscarComicPorTitulo = (titulo, orden) => {
 
       comics.map((comic) => {
         seccion.innerHTML += `
-      <article data-id=${comic.id} class="tarjeta-comic">
+      <article data-id=${comic.id} class="tarjeta-comic comic-principal">
       <div class="portada-comic">
         <img data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
       </div>
@@ -278,11 +282,13 @@ const buscarPersonajePorNombre = (nombre, orden) => {
       seccion.innerHTML = ""
       personajes.map((personaje) => {
         seccion.innerHTML += `<article class="character-article" data-id="${personaje.id}">
+        <div class="tarjeta-personaje">
         <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
             alt="">
         <div class="background-char-title">
-            <p data-id="${personaje.id}" class="character-title">${personaje.name}</p>
+            <h3 data-id="${personaje.id}" class="character-title">${personaje.name}</h3>
             
+        </div>
         </div>
       </article>`
         
@@ -354,12 +360,14 @@ const iniciar = () => {
   $('.boton-buscar').onclick = () => {
     search()
     paginadoPersonajes()
+    paginado()
   }
 
   $('#tipo').onchange = actualizarFiltros
 
   actualizarFiltros()
   paginadoPersonajes()
+  paginado()
   search()
 }
 
@@ -417,7 +425,7 @@ const paginado = () => {
 
 }
 
-paginado()
+// paginado()
 
 
 const paginadoPersonajes = () => {
@@ -465,6 +473,8 @@ const paginadoPersonajes = () => {
   }
 
 }
+
+// paginadoPersonajes()
 
 ////////// RESULTADOS
 
