@@ -338,8 +338,8 @@ const updateSortDropdown = () => {
     $('#orden').innerHTML = `                  
       <option value="title">A-Z</option>
       <option value="-title">Z-A</option>
-      <option value="-focDate">Más nuevos</option>
-      <option value="focDate">Más viejos</option>
+      <option value="-focDate">Newer</option>
+      <option value="focDate">Older</option>
     `
   }
   if ($('#tipo').value === 'characters') {
@@ -350,7 +350,7 @@ const updateSortDropdown = () => {
   }
 }
 
-const initialize = () => {
+const iniciar = () => {
   $('.boton-buscar').onclick = () => {
     search()
     paginadoPersonajes()
@@ -363,7 +363,7 @@ const initialize = () => {
   search()
 }
 
-window.onload = initialize
+window.onload = iniciar
 
 
 
