@@ -333,7 +333,7 @@ const search = () => {
   }
 }
 
-const updateSortDropdown = () => {
+const actualizarFiltros = () => {
   if ($('#tipo').value === 'comics') {
     $('#orden').innerHTML = `                  
       <option value="title">A-Z</option>
@@ -356,9 +356,9 @@ const iniciar = () => {
     paginadoPersonajes()
   }
 
-  $('#tipo').onchange = updateSortDropdown
+  $('#tipo').onchange = actualizarFiltros
 
-  updateSortDropdown()
+  actualizarFiltros()
   paginadoPersonajes()
   search()
 }
