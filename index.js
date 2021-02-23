@@ -92,8 +92,36 @@ const verComic = (e) => {
         </article>
 
       `
+      fetch(`https://gateway.marvel.com/v1/public/comics/${e.target.dataset.id}/characters?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset= ${paginaActual * comicsPorPagina}`)
+      .then((res) => {
+        return res.json()
+      })
+      .then((dataPersonajes) => {
+        let personajes = dataPersonajes.data.results
 
-    })
+        const seccionPersonajes = document.querySelector(".section-characters")
+        seccionPersonajes.innerHTML = ""
+
+        personajes.map((personaje) => {
+          seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
+          <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+              alt="">
+          <div class="background-char-title">
+              <p data-id="${personaje.id}" class="character-title">${personaje.name}</p>
+          </div>
+        </article>`
+  
+        })
+  
+        agregarEventoClick("character-article",verPersonajes)
+     
+
+      })
+    
+   
+   })
+  
+
 }
 
 obtenerNombresDeGuionistas = (comic) => {
@@ -176,6 +204,31 @@ const verPersonajes = (e) => {
       </div>
     </article>`
 
+    fetch(`https://gateway.marvel.com/v1/public/characters/${e.target.dataset.id}/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset= ${paginaActual * comicsPorPagina}`)
+      .then((res) => {
+        return res.json()
+      })
+      .then((dataComics) => {
+        let comics = dataComics.data.results
+
+        const seccion = document.querySelector(".section-characters")
+  
+      
+        comics.map((comic) => {
+          seccion.innerHTML += `
+        <article data-id=${comic.id} class="tarjeta-comic">
+        <div class="portada-comic">
+          <img data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
+        </div>
+        <h3 data-id=${comic.id} class="comic-title">${comic.title}</h3>
+        </article>        
+                `
+        })
+  
+        agregarEventoClick("tarjeta-comic",verComic)
+     
+
+      })
     })
 }
 
@@ -193,7 +246,7 @@ const buscarComicPorTitulo = (titulo, orden) => {
 
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
-      
+
       comics.map((comic) => {
         seccion.innerHTML += `
       <article data-id=${comic.id} class="tarjeta-comic">
