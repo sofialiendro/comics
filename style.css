@@ -119,6 +119,14 @@ input, select {
   flex-wrap: wrap;
   justify-content: space-between;
 }
+#comics .comic-principal:hover {
+  transform: translateY(-10px);
+  color: #e920ac;
+  transform: translateY(-10px);
+}
+#comics .comic-principal {
+  cursor: pointer;
+}
 #comics article {
   width: 200px;
   height: 300px;
@@ -126,10 +134,6 @@ input, select {
 }
 #comics article .portada-comic {
   width: 100%;
-  cursor: pointer;
-}
-#comics article .portada-comic:hover {
-  transform: translateY(-10px);
 }
 #comics article img {
   width: 100%;
@@ -141,6 +145,22 @@ input, select {
   width: 100%;
   font-size: 30px;
   width: 800px;
+}
+
+.character-article {
+  width: 500px;
+}
+.character-article .tarjeta-personaje {
+  width: 100%;
+  cursor: pointer;
+}
+.character-article .tarjeta-personaje:hover {
+  transform: translateY(-10px);
+  color: #e920ac;
+}
+
+.imagen-tamaño {
+  width: 300px;
 }
 
 .contenedor-boton-buscar {
