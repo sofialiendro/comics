@@ -15,6 +15,7 @@ const comicPortadas = document.querySelectorAll(".imagen-comic")
 let comicsPorPagina = 20;
 const numeroResultadosMostrados = document.querySelector('.cantidad-mostrada')
 const formulario = document.querySelector(".formulario")
+let numeroDeResultados=document.querySelector(".numero-de-resultados")
 
 //////// CONEXION 
 
@@ -98,9 +99,13 @@ const verComic = (e) => {
       })
       .then((dataPersonajes) => {
         let personajes = dataPersonajes.data.results
+    
+
 
         const seccionPersonajes = document.querySelector(".section-characters")
         seccionPersonajes.innerHTML = ""
+        mostrarResultadosDeLaBusqueda(personajes.length)
+
 
         personajes.map((personaje) => {
           seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
@@ -199,16 +204,17 @@ const verPersonajes = (e) => {
     })
     .then((data) => {
       let personaje = data.data.results[0]
+      //Borro el total
+      let contenedorResultados=document.querySelector(".contenedor-resultados")
+      contenedorResultados.innerHTML=""
       //Borro los demas personajes
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
 
       //Agrego article de personaje seleccionado
-      const seccionPersonajes = document.querySelector(".section-characters")
 
-      seccionPersonajes.innerHTML = `<article class="character-article" data-id="${personaje.id}">
-      <div class="">
-      <img class="comic-thumbnail imagen-tamaño" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+      seccion.innerHTML = `<article class="character-article" data-id="${personaje.id}">
+      <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
           alt="">
       <div class="background-char-title">
           <h3 class="character-title">${personaje.name}</h3>
@@ -225,7 +231,8 @@ const verPersonajes = (e) => {
         let comics = dataComics.data.results
 
         const seccion = document.querySelector(".section-characters")
-  
+        
+        mostrarResultadosDeLaBusqueda(comics.length)
       
         comics.map((comic) => {
           seccion.innerHTML += `
@@ -588,6 +595,14 @@ const paginado = () => {
 // // paginadoPersonajes()
 
 ////////// RESULTADOS
+
+const mostrarResultadosDeLaBusqueda=(numero)=>{
+
+  numeroDeResultados.textContent=numero
+  return numero
+
+
+}
 
 const contarComicsMostrados = () => {
   
