@@ -15,6 +15,7 @@ const comicPortadas = document.querySelectorAll(".imagen-comic")
 const comicsPorPagina = 20;
 const numeroResultadosMostrados = document.querySelector('.cantidad-mostrada')
 const formulario = document.querySelector(".formulario")
+let numeroDeResultados=document.querySelector(".numero-de-resultados")
 
 //////// CONEXION 
 
@@ -98,9 +99,13 @@ const verComic = (e) => {
       })
       .then((dataPersonajes) => {
         let personajes = dataPersonajes.data.results
+    
+
 
         const seccionPersonajes = document.querySelector(".section-characters")
         seccionPersonajes.innerHTML = ""
+        mostrarResultadosDeLaBusqueda(personajes.length)
+
 
         personajes.map((personaje) => {
           seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
@@ -188,14 +193,16 @@ const verPersonajes = (e) => {
     })
     .then((data) => {
       let personaje = data.data.results[0]
+      //Borro el total
+      let contenedorResultados=document.querySelector(".contenedor-resultados")
+      contenedorResultados.innerHTML=""
       //Borro los demas personajes
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
 
       //Agrego article de personaje seleccionado
-      const seccionPersonajes = document.querySelector(".section-characters")
 
-      seccionPersonajes.innerHTML = `<article class="character-article" data-id="${personaje.id}">
+      seccion.innerHTML = `<article class="character-article" data-id="${personaje.id}">
       <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
           alt="">
       <div class="background-char-title">
@@ -212,7 +219,8 @@ const verPersonajes = (e) => {
         let comics = dataComics.data.results
 
         const seccion = document.querySelector(".section-characters")
-  
+        
+        mostrarResultadosDeLaBusqueda(comics.length)
       
         comics.map((comic) => {
           seccion.innerHTML += `
@@ -234,7 +242,7 @@ const verPersonajes = (e) => {
 
 
 const buscarComicPorTitulo = (titulo, orden) => {
-  fetch(`https://gateway.marvel.com:443/v1/public/comics?format=comic&titleStartsWith=${titulo}&orderBy=name&apikey=4d140645edcdb0c22d45f34f5fd8098a&offset=${paginaActual * comicsPorPagina}`)
+  fetch(`https://gateway.marvel.com:443/v1/public/comics?format=comic&titleStartsWith=${titulo}&orderBy=${orden}&apikey=4d140645edcdb0c22d45f34f5fd8098a&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
     })
@@ -467,6 +475,14 @@ const paginadoPersonajes = () => {
 }
 
 ////////// RESULTADOS
+
+const mostrarResultadosDeLaBusqueda=(numero)=>{
+
+  numeroDeResultados.textContent=numero
+  return numero
+
+
+}
 
 const contarComicsMostrados = () => {
   
