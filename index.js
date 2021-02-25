@@ -16,6 +16,8 @@ let comicsPorPagina = 20;
 const numeroResultadosMostrados = document.querySelector('.cantidad-mostrada')
 const formulario = document.querySelector(".formulario")
 let numeroDeResultados=document.querySelector(".numero-de-resultados")
+let seccionResultadosComicsYPersonajes = document.querySelector(".contenedor-comcis-personajes-resultados")
+
 
 //////// CONEXION 
 
@@ -46,6 +48,7 @@ const buscarComics = (orden) => {
       })
       agregarEventoClick("tarjeta-comic",verComic)
       contarComicsMostrados()
+      
     })
 }
 
@@ -72,7 +75,8 @@ const verComic = (e) => {
     })
     .then((data) => {
       let comic = data.data.results[0]
-
+      let contenedorResultados=document.querySelector(".contenedor-resultados")
+      contenedorResultados.innerHTML=""
 
 
       const seccion = document.querySelector("#comics")
@@ -445,54 +449,6 @@ const paginado = () => {
 
 // paginado()
 
-
-// const paginadoPersonajes = () => {
-
-
-//   botonProx.onclick = () => {
-//     paginaActual++
-//     console.log("pagina actual", paginaActual)
-//     botonPrimera.disabled = false;
-//     botonPrevio.disabled = false;
-//     buscarPersonajes(paginaActual)
-//   }
-
-
-//   botonPrevio.onclick = () => {
-//     paginaActual--
-//     console.log("pagina actual", paginaActual)
-//     botonUltima.disabled = false;
-//     botonProx.disabled = false;
-//     buscarPersonajes(paginaActual)
-//   }
-
-//   botonPrimera.onclick = () => {
-
-//     offset = 0;
-//     paginaActual = 0;
-//     console.log("vamos a la primera", paginaActual)
-//     botonPrimera.disabled = true;
-//     botonPrevio.disabled = true;
-//     botonUltima.disabled = false;
-//     botonProx.disabled = false;
-//     buscarPersonajes(paginaActual)
-//   }
-
-//   botonUltima.onclick = () => {
-
-//     offset = 74;
-//     paginaActual = 74;
-//     console.log("vamos a la ultima", paginaActual)
-//     botonUltima.disabled = true;
-//     botonProx.disabled = true;
-//     botonPrimera.disabled = false;
-//     botonPrevio.disabled = false;
-//     buscarPersonajes(paginaActual)
-//   }
-
-// }
-
-// // paginadoPersonajes()
 
 ////////////// CONEXION PARA CAMBIO DE PAGINA
 
