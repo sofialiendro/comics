@@ -231,6 +231,7 @@ const verPersonajes = (e) => {
         let comics = dataComics.data.results
 
         const seccion = document.querySelector(".section-characters")
+        seccion.innerHTML=""
         
         mostrarResultadosDeLaBusqueda(comics.length)
       

@@ -147,6 +147,15 @@ input, select {
   width: 800px;
 }
 
+.tarjeta-comic-detalle {
+  width: 350px;
+  height: 800px;
+}
+.tarjeta-comic-detalle .portada-comic-detalle {
+  width: 100%;
+  height: auto;
+}
+
 .character-article {
   width: 500px;
 }
@@ -159,8 +168,41 @@ input, select {
   color: #e920ac;
 }
 
-.imagen-tamaño {
-  width: 300px;
+.section-characters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.section-characters .character-article {
+  width: 250px;
+  height: 400px;
+  margin: 20px;
+  background-color: #0c050a;
+  color: white;
+  text-align: center;
+}
+.section-characters .character-article .imagen-comic-personaje {
+  width: 100%;
+  height: 250px;
+}
+.section-characters .character-article .comic-thumbnail {
+  width: 100%;
+  height: 100%;
+}
+.section-characters .character-article h3 {
+  text-transform: uppercase;
+}
+
+.tarjeta-comic {
+  width: 200px;
+  height: 300px;
+  margin: 4%;
+}
+
+.comic-thumbnail {
+  width: 100%;
+  height: auto;
 }
 
 .contenedor-boton-buscar {
@@ -229,6 +271,7 @@ input, select {
 
 .info-comic {
   display: flex;
+  font-size: 5px;
 }
 
 .hidden {
