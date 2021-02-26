@@ -174,31 +174,17 @@ input, select {
         width: 100%;
         height: auto;
     }
-}
     .info-portada{
-    
-        margin:0;
-        margin-left: 100px;
-        width: 100%;
+
         font-size: 30px;
-        width: 800px;
+        width: 200px;
+        height: 200px;
     }
 }
-
-.tarjeta-comic-detalle{
-    width: 350px;
-    height: 800px;
-
-
-.portada-comic-detalle{
-    width: 100%;
-    height: auto;
-   
+    
 }
-}
+
 .character-article {
-
-    width:500px;
 
     .tarjeta-personaje{
         width: 100%;
@@ -295,7 +281,6 @@ input, select {
     margin-top:20px;
     margin-left: 0;
 }
-
 
 .botones-comics {
     @extend %centrar-flex;

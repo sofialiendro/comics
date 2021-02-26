@@ -82,8 +82,8 @@ const verComic = (e) => {
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
       seccion.innerHTML = `
-        <article class="tarjeta-comic">
-        <div class="portada-comic info-comic">
+        <article class="tarjeta-comic-detalle">
+        <div class="portada-comic-detalle info-comic">
         <img src="${comic.thumbnail.path}.jpg"></img>
         <div>
         <strong><div class="info-portada">${comic.title}<div></strong>
@@ -218,12 +218,10 @@ const verPersonajes = (e) => {
       //Agrego article de personaje seleccionado
 
       seccion.innerHTML = `<article class="character-article" data-id="${personaje.id}">
-      <img class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+      <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
           alt="">
-      <div class="background-char-title">
-          <h3 class="character-title">${personaje.name}</h3>
-          
-      </div>
+      <div data-id="${personaje.id}" class="background-char-title">
+          <h3 class="character-title">${personaje.name}</h3>   
       </div>
     </article>`
 
@@ -242,9 +240,9 @@ const verPersonajes = (e) => {
         comics.map((comic) => {
           seccion.innerHTML += `
         <article data-id=${comic.id} class="tarjeta-comic comic-principal">
-        <div class="">
+  
           <img data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
-        </div>
+
         <h3 data-id=${comic.id} class="comic-title">${comic.title}</h3>
         </article>        
                 `
