@@ -282,7 +282,14 @@ const buscarComicPorTitulo = (titulo, orden) => {
       })
 
       agregarEventoClick("tarjeta-comic",verComic)
+      const decirQueNoHayResultados = () => {
+        if (comics.length === 0) {
+        $('.contenedor-resultados').innerHTML =
+          '<h2 class="no-results">No se han encontrado resultados</h2>'
 
+        }
+      }
+      decirQueNoHayResultados()
     })
 }
 
@@ -315,6 +322,15 @@ const buscarPersonajePorNombre = (nombre, orden) => {
 
       agregarEventoClick("character-article",verPersonajes)
 
+      const decirQueNoHayResultados = () => {
+        if (personajes.length === 0) {
+        $('.contenedor-resultados').innerHTML =
+          '<h2 class="no-results">No se han encontrado resultados</h2>'
+
+        }
+      }
+      decirQueNoHayResultados()
+      
 
     })
 }
@@ -356,6 +372,7 @@ const search = () => {
     }
 
   }
+
 }
 
 const actualizarFiltros = () => {
