@@ -6,6 +6,7 @@ $color-header: #0c050a;
 $color-secundario: grey;
 $color-hover: rgb(233, 32, 172);
 
+
 %centrar-flex {
     display: flex;
     align-items: center;
@@ -150,6 +151,7 @@ input, select {
     justify-content:space-between;
 
     .comic-principal:hover {
+
         transform: translateY(-10px);
         color: $color-hover;
         transform: translateY(-10px);
@@ -170,9 +172,33 @@ input, select {
    
     }
 
-    img{
+
+    article{
+        width: 200px;
+        height: 300px;
+        margin: 50px;
+
+        .portada-comic{
         width: 100%;
-        height: auto;
+    
+        }
+
+        img{
+            width: 100%;
+            height: auto;
+        }
+
+
+    }
+
+
+    .info-portada{
+    
+        margin:0;
+        margin-left: 100px;
+        width: 100%;
+        font-size: 30px;
+        width: 800px;
     }
     .info-portada{
 
@@ -181,6 +207,7 @@ input, select {
         height: 200px;
     }
 }
+
     
 }
 
@@ -195,6 +222,7 @@ input, select {
         transform: translateY(-10px);
         color: $color-hover;
     }
+
 
 
 }
@@ -333,6 +361,10 @@ input, select {
     font-size: 5px;
 }
 
+.character-article {
+    overflow: hidden;
+    width: calc(100% / 6 - 2 * 10px);
+}
 
 
 .hidden {

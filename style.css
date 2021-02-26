@@ -122,7 +122,9 @@ input, select {
 #comics .comic-principal:hover {
   transform: translateY(-10px);
   color: #e920ac;
+
   transform: translateY(-10px);
+
 }
 #comics .comic-principal {
   cursor: pointer;
@@ -158,6 +160,7 @@ input, select {
   transform: translateY(-10px);
   color: #e920ac;
 }
+
 
 .section-characters {
   display: flex;
@@ -263,6 +266,11 @@ input, select {
 .info-comic {
   display: flex;
   font-size: 5px;
+}
+
+.character-article {
+  overflow: hidden;
+  width: calc(100% / 6 - 2 * 10px);
 }
 
 .hidden {
