@@ -99,7 +99,6 @@ button {
 }
 
 
-
 input, select {
     height: 30px;
     background-color: white;
@@ -152,13 +151,27 @@ input, select {
     justify-content:space-between;
 
     .comic-principal:hover {
-            transform: translateY(-10px);
-            color: $color-hover;
-            
-    }
+
+        transform: translateY(-10px);
+        color: $color-hover;
+        transform: translateY(-10px);
+     }
     .comic-principal {
-        cursor: pointer;
+            cursor: pointer;
     }
+
+    article{
+        width: 200px;
+        height: 300px;
+        margin: 50px;
+   
+
+    .portada-comic{
+    width: 100%;
+
+   
+    }
+
 
     article{
         width: 200px;
@@ -187,26 +200,83 @@ input, select {
         font-size: 30px;
         width: 800px;
     }
+    .info-portada{
+
+        font-size: 30px;
+        width: 200px;
+        height: 200px;
+    }
 }
 
+    
+}
 
 .character-article {
 
-        width:500px;
-
-        .tarjeta-personaje{
-            width: 100%;
-            cursor: pointer;
-        
-            }
-        .tarjeta-personaje:hover {
-            transform: translateY(-10px);
-            color: $color-hover;
-        }
+    .tarjeta-personaje{
+        width: 100%;
+        cursor: pointer;
     
+        }
+    .tarjeta-personaje:hover {
+        transform: translateY(-10px);
+        color: $color-hover;
+    }
+
+
 
 }
 
+.section-characters{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+    .character-article{
+
+        width: 250px;
+        height: 400px;
+        margin:20px;
+        background-color: $color-header;
+        color:white;
+        text-align: center;
+        
+
+
+        .imagen-comic-personaje{
+            width: 100%;
+            height: 250px;
+     
+
+
+        }
+        
+        .comic-thumbnail{
+            width: 100%;
+            height:100%;
+
+        }
+        h3{
+            text-transform: uppercase;
+        }
+    }
+
+
+}
+
+.tarjeta-comic{
+        width: 200px;
+        height: 300px;
+        margin:4%;
+        
+
+}
+    .comic-thumbnail{
+        width: 100%;
+        height: auto;
+
+    }
 
 .contenedor-boton-buscar {
     display: flex;
@@ -239,7 +309,6 @@ input, select {
     margin-top:20px;
     margin-left: 0;
 }
-
 
 .botones-comics {
     @extend %centrar-flex;
@@ -289,6 +358,7 @@ input, select {
 
 .info-comic {
     display: flex;
+    font-size: 5px;
 }
 
 .character-article {

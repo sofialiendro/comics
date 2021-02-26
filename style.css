@@ -122,6 +122,9 @@ input, select {
 #comics .comic-principal:hover {
   transform: translateY(-10px);
   color: #e920ac;
+
+  transform: translateY(-10px);
+
 }
 #comics .comic-principal {
   cursor: pointer;
@@ -156,6 +159,44 @@ input, select {
 .character-article .tarjeta-personaje:hover {
   transform: translateY(-10px);
   color: #e920ac;
+}
+
+
+.section-characters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.section-characters .character-article {
+  width: 250px;
+  height: 400px;
+  margin: 20px;
+  background-color: #0c050a;
+  color: white;
+  text-align: center;
+}
+.section-characters .character-article .imagen-comic-personaje {
+  width: 100%;
+  height: 250px;
+}
+.section-characters .character-article .comic-thumbnail {
+  width: 100%;
+  height: 100%;
+}
+.section-characters .character-article h3 {
+  text-transform: uppercase;
+}
+
+.tarjeta-comic {
+  width: 200px;
+  height: 300px;
+  margin: 4%;
+}
+
+.comic-thumbnail {
+  width: 100%;
+  height: auto;
 }
 
 .contenedor-boton-buscar {
@@ -224,6 +265,7 @@ input, select {
 
 .info-comic {
   display: flex;
+  font-size: 5px;
 }
 
 .character-article {
