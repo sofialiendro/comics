@@ -202,7 +202,7 @@ const buscarPersonajes = (orden) => {
 
       agregarEventoClick("character-article",verPersonajes)
       contarPersonajesMostrados()
-
+      
       
     })
     
@@ -307,6 +307,7 @@ const buscarComicPorTitulo = (titulo, orden) => {
         }
       }
       decirQueNoHayResultados()
+
     })
 }
 
@@ -395,7 +396,7 @@ const actualizarFiltros = () => {
   if ($('#tipo').value === 'comics') {
     $('#orden').innerHTML = `                  
       <option value="title">A-Z</option>
-      <option value="-title">Z-A</option>
+      <option class="ZA" value="-title">Z-A</option>
       <option value="-focDate">Newer</option>
       <option value="focDate">Older</option>
     `
@@ -406,20 +407,24 @@ const actualizarFiltros = () => {
       <option value="-name">Z-A</option>
     `
   }
+
+   
 }
 
 const iniciar = () => {
   $('.boton-buscar').onclick = () => {
     search()
     // paginadoPersonajes()
-    paginado()
+     paginado()
+    
   }
 
   $('#tipo').onchange = actualizarFiltros
 
   actualizarFiltros()
   // paginadoPersonajes()
-  paginado()
+   paginado()
+  
   search()
 }
 
@@ -427,6 +432,77 @@ window.onload = iniciar
 
 
 
+////////////// PAGINADO
+
+
+const buscarComicsTitle = () => {
+  console.log("buscando comics...")
+  fetch(`https://gateway.marvel.com/v1/public/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset=${paginaActual * comicsPorPagina}`)
+    .then((res) => {
+      return res.json()
+    })
+    .then((data) => {
+      console.log(data)
+      comics = data.data.results
+
+      const seccionPersonajes = document.querySelector(".section-characters")
+      seccionPersonajes.innerHTML= ""
+
+      const seccion = document.querySelector("#comics")
+      seccion.innerHTML = ""
+      comics.map((comic) => {
+        seccion.innerHTML += `
+      <article data-id=${comic.id} class="tarjeta-comic comic-principal">
+      <div class="portada-comic">
+        <img class="imagen-comic" data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
+      </div>
+      <h3 data-id=${comic.id} class="comic-title">${comic.title}</h3>
+      </article>`
+      })
+
+      agregarEventoClick("tarjeta-comic",verComic)
+      contarComicsMostrados()
+      paginado()
+    })
+    
+}
+
+// const buscarPersonajesName = () => {
+//   console.log("buscando personajes...")
+//   fetch(`https://gateway.marvel.com/v1/public/characters?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset=${paginaActual * comicsPorPagina}`)
+//     .then((res) => {
+//       return res.json()
+//     })
+//     .then((data) => {
+//       console.log(data)
+//       personajes = data.data.results
+
+     
+      
+//       const seccionPersonajes = document.querySelector("#comics")
+//       seccion.innerHTML = ""
+//       personajes.map((personaje) => {
+//         seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
+//         <div class="tarjeta-personaje">
+//         <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
+//             alt="">
+//         <div class="background-char-title">
+//             <h3 data-id="${personaje.id}" class="character-title">${personaje.name}</h3>
+//         </div>
+//         </div>
+//       </article>`
+
+//       })
+
+
+//       agregarEventoClick("character-article",verPersonajes)
+//       contarPersonajesMostrados()
+//       paginadoPersonajes()
+      
+//     })
+    
+
+// }
 
 
 const paginado = () => {
@@ -436,7 +512,8 @@ const paginado = () => {
     paginaActual++
     botonPrimera.disabled = false;
     botonPrevio.disabled = false;
-    buscarComics()
+    buscarComicsTitle()
+    
   }
 
 
@@ -445,93 +522,38 @@ const paginado = () => {
  
     botonUltima.disabled = false;
     botonProx.disabled = false;
-    buscarComics()
+    buscarComicsTitle()
+    
   }
 
   botonPrimera.onclick = () => {
 
-    offset = 0;
+    
     paginaActual = 0;
     console.log("vamos a la primera", paginaActual)
     botonPrimera.disabled = true;
     botonPrevio.disabled = true;
     botonUltima.disabled = false;
     botonProx.disabled = false;
-    buscarComics()
+    buscarComicsTitle()
+    
   }
 
   botonUltima.onclick = () => {
-   const resto = total % comicsPorPagina
-   if (resto > 0) {
-     paginaActual = (total - (total % comicsPorPagina)) / comicsPorPagina
-   }
-   else {
-     paginaActual ((total - (total % comicsPorPagina)) / comicsPorPagina) - comicsPorPagina
-   }
+    
+    paginaActual = (48534 - (48534 % 20)) / 20
 
     
     botonUltima.disabled = true;
     botonProx.disabled = true;
     botonPrimera.disabled = false;
     botonPrevio.disabled = false;
-    buscarComics()
+    buscarComicsTitle()
+    
   }
 
 }
 
-// paginado()
-
-
-////////////// CONEXION PARA CAMBIO DE PAGINA
-
-
-// const paginado = () => {
-
-
-//   botonProx.onclick = () => {
-//     paginaActual++
-//     console.log("pagina actual", paginaActual)
-//     botonPrimera.disabled = false;
-//     botonPrevio.disabled = false;
-//     buscarComics(paginaActual)
-//   }
-
-
-//   botonPrevio.onclick = () => {
-//     paginaActual--
-//     console.log("pagina actual", paginaActual)
-//     botonUltima.disabled = false;
-//     botonProx.disabled = false;
-//     buscarComics(paginaActual)
-//   }
-
-//   botonPrimera.onclick = () => {
-
-//     offset = 0;
-//     paginaActual = 0;
-//     console.log("vamos a la primera", paginaActual)
-//     botonPrimera.disabled = true;
-//     botonPrevio.disabled = true;
-//     botonUltima.disabled = false;
-//     botonProx.disabled = false;
-//     buscarComics(paginaActual)
-//   }
-
-//   botonUltima.onclick = () => {
-
-//     offset = 2420;
-//     paginaActual = 2420;
-//     console.log("vamos a la ultima", paginaActual)
-//     botonUltima.disabled = true;
-//     botonProx.disabled = true;
-//     botonPrimera.disabled = false;
-//     botonPrevio.disabled = false;
-//     buscarComics(paginaActual)
-//   }
-
-// }
-
-// // paginado()
 
 
 // const paginadoPersonajes = () => {
@@ -542,7 +564,7 @@ const paginado = () => {
 //     console.log("pagina actual", paginaActual)
 //     botonPrimera.disabled = false;
 //     botonPrevio.disabled = false;
-//     buscarPersonajes(paginaActual)
+//     buscarPersonajesName()
 //   }
 
 
@@ -551,36 +573,35 @@ const paginado = () => {
 //     console.log("pagina actual", paginaActual)
 //     botonUltima.disabled = false;
 //     botonProx.disabled = false;
-//     buscarPersonajes(paginaActual)
+//     buscarPersonajesName()
 //   }
 
 //   botonPrimera.onclick = () => {
 
-//     offset = 0;
 //     paginaActual = 0;
 //     console.log("vamos a la primera", paginaActual)
 //     botonPrimera.disabled = true;
 //     botonPrevio.disabled = true;
 //     botonUltima.disabled = false;
 //     botonProx.disabled = false;
-//     buscarPersonajes(paginaActual)
+//     buscarPersonajesName()
+    
 //   }
 
 //   botonUltima.onclick = () => {
+    
+//     paginaActual = (1493 - (1493 % 20)) / 20
 
-//     offset = 74;
-//     paginaActual = 74;
-//     console.log("vamos a la ultima", paginaActual)
+    
 //     botonUltima.disabled = true;
 //     botonProx.disabled = true;
 //     botonPrimera.disabled = false;
 //     botonPrevio.disabled = false;
-//     buscarPersonajes(paginaActual)
+//     buscarPersonajesName()
 //   }
-
 // }
 
-// // paginadoPersonajes()
+
 
 ////////// RESULTADOS
 
