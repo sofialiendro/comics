@@ -141,12 +141,7 @@ const verComic = (e) => {
 
 }
 
-const deshabilitarPaginado = () => {
-  botonUltima.disabled = true;
-    botonProx.disabled = true;
-    botonPrimera.disabled = true;
-    botonPrevio.disabled = true;
-}
+
 
 obtenerNombresDeGuionistas = (comic) => {
 
@@ -411,9 +406,7 @@ const actualizarFiltros = () => {
 
 const iniciar = () => {
   $('.boton-buscar').onclick = () => {
-    let contenedorResultados=document.querySelector(".contenedor-resultados")
-
-    contenedorResultados.innerHTML=""
+   
 
     search()
     paginado()
@@ -430,7 +423,7 @@ window.onload = iniciar
 
 
 
-////////////// PAGINADO
+
 
 
 const buscarComicsTitle = () => {
@@ -459,10 +452,19 @@ const buscarComicsTitle = () => {
       })
 
       agregarEventoClick("tarjeta-comic",verComic)
-      contarComicsMostrados()
       paginado()
     })
     
+}
+
+
+////////////// PAGINADO
+
+const deshabilitarPaginado = () => {
+  botonUltima.disabled = true;
+    botonProx.disabled = true;
+    botonPrimera.disabled = true;
+    botonPrevio.disabled = true;
 }
 
 
@@ -473,7 +475,7 @@ const paginado = () => {
     paginaActual++
     botonPrimera.disabled = false;
     botonPrevio.disabled = false;
-    let orden = $('#orden').value
+
     search()
   }
 
@@ -483,7 +485,7 @@ const paginado = () => {
  
     botonUltima.disabled = false;
     botonProx.disabled = false;
-    let orden = $('#orden').value
+   
     search()
   }
 
@@ -491,12 +493,11 @@ const paginado = () => {
 
     
     paginaActual = 0;
-    console.log("vamos a la primera", paginaActual)
     botonPrimera.disabled = true;
     botonPrevio.disabled = true;
     botonUltima.disabled = false;
     botonProx.disabled = false;
-    let orden = $('#orden').value
+    
     search()
   }
 
@@ -515,7 +516,7 @@ const paginado = () => {
     botonProx.disabled = true;
     botonPrimera.disabled = false;
     botonPrevio.disabled = false;
-    let orden = $('#orden').value
+
     search()
   }
 
