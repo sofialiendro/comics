@@ -76,8 +76,6 @@ const agregarEventoClick=(clase,funcion)=>{
 
 
 const verComic = (e) => {
-
-  //console.log(e.target.dataset.id)
   fetch(`https://gateway.marvel.com/v1/public/comics/${e.target.dataset.id}?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset= ${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
@@ -396,7 +394,7 @@ const actualizarFiltros = () => {
   if ($('#tipo').value === 'comics') {
     $('#orden').innerHTML = `                  
       <option value="title">A-Z</option>
-      <option value="-title">Z-A</option>
+      <option class="ZA" value="-title">Z-A</option>
       <option value="-focDate">Newer</option>
       <option value="focDate">Older</option>
     `
@@ -407,6 +405,8 @@ const actualizarFiltros = () => {
       <option value="-name">Z-A</option>
     `
   }
+
+   
 }
 
 const iniciar = () => {
@@ -430,6 +430,40 @@ window.onload = iniciar
 
 
 
+////////////// PAGINADO
+
+
+const buscarComicsTitle = () => {
+  console.log("buscando comics...")
+  fetch(`https://gateway.marvel.com/v1/public/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset=${paginaActual * comicsPorPagina}`)
+    .then((res) => {
+      return res.json()
+    })
+    .then((data) => {
+      console.log(data)
+      comics = data.data.results
+
+      const seccionPersonajes = document.querySelector(".section-characters")
+      seccionPersonajes.innerHTML= ""
+
+      const seccion = document.querySelector("#comics")
+      seccion.innerHTML = ""
+      comics.map((comic) => {
+        seccion.innerHTML += `
+      <article data-id=${comic.id} class="tarjeta-comic comic-principal">
+      <div class="portada-comic">
+        <img class="imagen-comic" data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
+      </div>
+      <h3 data-id=${comic.id} class="comic-title">${comic.title}</h3>
+      </article>`
+      })
+
+      agregarEventoClick("tarjeta-comic",verComic)
+      contarComicsMostrados()
+      paginado()
+    })
+    
+}
 
 
 const paginado = () => {
@@ -455,7 +489,7 @@ const paginado = () => {
 
   botonPrimera.onclick = () => {
 
-    offset = 0;
+    
     paginaActual = 0;
     console.log("vamos a la primera", paginaActual)
     botonPrimera.disabled = true;
