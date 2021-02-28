@@ -6,7 +6,6 @@ $color-header: #0c050a;
 $color-secundario: grey;
 $color-hover: rgb(233, 32, 172);
 
-
 %centrar-flex {
     display: flex;
     align-items: center;
@@ -96,6 +95,7 @@ button {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 
@@ -114,7 +114,7 @@ input, select {
     padding: 13px;
     border-bottom: 2px solid black;
     font-family: "Roboto";
-    width: 600px;
+    width: 100%;
     font-size: 20px;
     background-color: $color-background;
 }
@@ -151,7 +151,6 @@ input, select {
     justify-content:space-between;
 
     .comic-principal:hover {
-
         transform: translateY(-10px);
         color: $color-hover;
         transform: translateY(-10px);
@@ -164,52 +163,64 @@ input, select {
         width: 200px;
         height: 300px;
         margin: 50px;
+
+        #info-y-portada{
+            display:flex;
+            width: 100vw;
+            height: 50vh;
+            
+            
+            div{
+                height: 50px;
+                width: 100%;
+                
+
+                .info-portada{
+                    width: 50%;
+                }
+        
+            }
+
+            .portada{
+                width:30vw;
+                margin-right: 2%;
+            
+
+
+                .img-2{
+                    width: 100%;
+                    height:auto;
+                    
+                }
+            
+                @media(max-width:400px){
+                    margin: 0;
+                
+                    }
+                }
+               
+            @media(max-width:400px){
+                flex-wrap: wrap;
+            
+                }
+        }
+    }
+        
    
 
     .portada-comic{
     width: 100%;
-
-   
     }
 
-
-    article{
-        width: 200px;
-        height: 300px;
-        margin: 50px;
-
-        .portada-comic{
+    img{
         width: 100%;
+        height: auto;
+    }
+  
     
-        }
-
-        img{
-            width: 100%;
-            height: auto;
-        }
-
-
-    }
-
-
-    .info-portada{
-    
-        margin:0;
-        margin-left: 100px;
-        width: 100%;
-        font-size: 30px;
-        width: 800px;
-    }
-    .info-portada{
-
-        font-size: 30px;
-        width: 200px;
-        height: 200px;
-    }
 }
 
     
-}
 
 .character-article {
 
@@ -222,7 +233,6 @@ input, select {
         transform: translateY(-10px);
         color: $color-hover;
     }
-
 
 
 }
@@ -272,6 +282,7 @@ input, select {
         
 
 }
+
     .comic-thumbnail{
         width: 100%;
         height: auto;
@@ -354,16 +365,6 @@ input, select {
 
 .botones-comics {
     margin-top:10%;
-}
-
-.info-comic {
-    display: flex;
-    font-size: 5px;
-}
-
-.character-article {
-    overflow: hidden;
-    width: calc(100% / 6 - 2 * 10px);
 }
 
 

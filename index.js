@@ -12,12 +12,12 @@ const ApiKey = "4d140645edcdb0c22d45f34f5fd8098a";
 let seccion = document.querySelector("#comics")
 const URLbase = 'https://gateway.marvel.com/v1/public'
 const comicPortadas = document.querySelectorAll(".imagen-comic")
-
+let total=0
 let comicsPorPagina = 20;
 const numeroResultadosMostrados = document.querySelector('.cantidad-mostrada')
 const formulario = document.querySelector(".formulario")
 let numeroDeResultados=document.querySelector(".numero-de-resultados")
-let seccionResultadosComicsYPersonajes = document.querySelector(".contenedor-comcis-personajes-resultados")
+let seccionResultadosComicsYPersonajes = document.querySelector(".contenedor-comics-personajes-resultados")
 
 
 
@@ -35,6 +35,9 @@ const buscarComics = (orden) => {
     .then((data) => {
       console.log(data)
       comics = data.data.results
+      total=data.data.total
+      MostrarTotal(total)
+    
 
       const seccionPersonajes = document.querySelector(".section-characters")
       seccionPersonajes.innerHTML= ""
@@ -52,7 +55,7 @@ const buscarComics = (orden) => {
       })
 
       agregarEventoClick("tarjeta-comic",verComic)
-      contarComicsMostrados()
+
       
     })
     
@@ -88,17 +91,16 @@ const verComic = (e) => {
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
       seccion.innerHTML = `
-        <article class="tarjeta-comic-detalle">
-        <div class="portada-comic-detalle info-comic">
-        <img src="${comic.thumbnail.path}.jpg"></img>
-        <div>
-        <strong><div class="info-portada">${comic.title}<div></strong>
+        <article>
+        <div id="info-y-portada">
+        <div class="portada">
+        <img class="img-2" src="${comic.thumbnail.path}.jpg"></img>
         </div>
-        <strong><div>Publishing Date:</strong> ${comic.dates[0].date}<div>
-        </div>
-        <strong><div>Writers:</strong> ${obtenerNombresDeGuionistas(comic)}<div>
-        </div>
-        <strong><div> Description:</strong> ${comic.description}<div>
+        <div class="info-portada">
+        <div> <h2>${comic.title}</h2></div>
+        <div> <h2>Publishing Date:</h2> <p>${comic.dates[0].date}</p></div>
+        <div><h2>Writers:</h2> <p> ${obtenerNombresDeGuionistas(comic)}</p></div>
+        <div><h2>Description:</h2><p>${comic.description}</p></div>
         </div>
         </article>
 
@@ -181,6 +183,9 @@ const buscarPersonajes = (orden) => {
     .then((data) => {
       console.log(data)
       personajes = data.data.results
+      total=data.data.total
+      MostrarTotal(total)
+
 
      
       
@@ -201,7 +206,7 @@ const buscarPersonajes = (orden) => {
 
 
       agregarEventoClick("character-article",verPersonajes)
-      contarPersonajesMostrados()
+
 
       
     })
@@ -280,6 +285,8 @@ const buscarComicPorTitulo = (titulo, orden) => {
     })
     .then((data) => {
       comics = data.data.results
+      total=data.data.total
+      MostrarTotal(total)
 
       const seccionPersonajes = document.querySelector(".section-characters")
       seccionPersonajes.innerHTML= ""
@@ -299,14 +306,15 @@ const buscarComicPorTitulo = (titulo, orden) => {
       })
 
       agregarEventoClick("tarjeta-comic",verComic)
-      const decirQueNoHayResultados = () => {
-        if (comics.length === 0) {
-        $('.contenedor-resultados').innerHTML =
-          '<h2 class="no-results">No se han encontrado resultados</h2>'
+      
+      // const decirQueNoHayResultados = () => {
+      //   if (comics.length === 0) {
+      //   $('.contenedor-resultados').innerHTML =
+      //     '<h2 class="no-results">No se han encontrado resultados</h2>'
 
-        }
-      }
-      decirQueNoHayResultados()
+      //   }
+      // }
+      /* decirQueNoHayResultados() */
     })
 }
 
@@ -317,6 +325,8 @@ const buscarPersonajePorNombre = (nombre, orden) => {
     })
     .then((data) => {
       let personajes = data.data.results
+      total=data.data.total
+      MostrarTotal(total)
 
       const seccionPersonajes = document.querySelector(".section-characters")
       seccionPersonajes.innerHTML= ""
@@ -339,14 +349,14 @@ const buscarPersonajePorNombre = (nombre, orden) => {
 
       agregarEventoClick("character-article",verPersonajes)
 
-      const decirQueNoHayResultados = () => {
-        if (personajes.length === 0) {
-        $('.contenedor-resultados').innerHTML =
-          '<h2 class="no-results">No se han encontrado resultados</h2>'
+      // const decirQueNoHayResultados = () => {
+      //   if (personajes.length === 0) {
+      //   $('.contenedor-resultados').innerHTML =
+      //     '<h2 class="no-results">No se han encontrado resultados</h2>'
 
-        }
-      }
-      decirQueNoHayResultados()
+      //   }
+      // }
+      // decirQueNoHayResultados()
       
 
     })
@@ -354,16 +364,7 @@ const buscarPersonajePorNombre = (nombre, orden) => {
 
 
 
-
-const ocultar = () => {
-  $('#comics').classList.add('hidden')
-  $('.section-characters').classList.add('hidden')
-}
-
-
 const search = () => {
-  //ocultar()
-
 
   let tipo = $('#tipo').value
   let orden = $('#orden').value
@@ -410,15 +411,17 @@ const actualizarFiltros = () => {
 
 const iniciar = () => {
   $('.boton-buscar').onclick = () => {
+    let contenedorResultados=document.querySelector(".contenedor-resultados")
+
+    contenedorResultados.innerHTML=""
+
     search()
-    // paginadoPersonajes()
     paginado()
   }
 
   $('#tipo').onchange = actualizarFiltros
 
   actualizarFiltros()
-  // paginadoPersonajes()
   paginado()
   search()
 }
@@ -436,7 +439,8 @@ const paginado = () => {
     paginaActual++
     botonPrimera.disabled = false;
     botonPrevio.disabled = false;
-    buscarComics()
+    let orden = $('#orden').value
+    search()
   }
 
 
@@ -445,7 +449,8 @@ const paginado = () => {
  
     botonUltima.disabled = false;
     botonProx.disabled = false;
-    buscarComics()
+    let orden = $('#orden').value
+    search()
   }
 
   botonPrimera.onclick = () => {
@@ -457,16 +462,18 @@ const paginado = () => {
     botonPrevio.disabled = true;
     botonUltima.disabled = false;
     botonProx.disabled = false;
-    buscarComics()
+    let orden = $('#orden').value
+    search()
   }
 
   botonUltima.onclick = () => {
    const resto = total % comicsPorPagina
+  
    if (resto > 0) {
-     paginaActual = (total - (total % comicsPorPagina)) / comicsPorPagina
+     paginaActual = (total - (resto)) / comicsPorPagina
    }
    else {
-     paginaActual ((total - (total % comicsPorPagina)) / comicsPorPagina) - comicsPorPagina
+     paginaActual = ((total - (resto)) / comicsPorPagina) - comicsPorPagina
    }
 
     
@@ -474,141 +481,24 @@ const paginado = () => {
     botonProx.disabled = true;
     botonPrimera.disabled = false;
     botonPrevio.disabled = false;
-    buscarComics()
+    let orden = $('#orden').value
+    search()
   }
 
 }
-
-// paginado()
-
-
-////////////// CONEXION PARA CAMBIO DE PAGINA
-
-
-// const paginado = () => {
-
-
-//   botonProx.onclick = () => {
-//     paginaActual++
-//     console.log("pagina actual", paginaActual)
-//     botonPrimera.disabled = false;
-//     botonPrevio.disabled = false;
-//     buscarComics(paginaActual)
-//   }
-
-
-//   botonPrevio.onclick = () => {
-//     paginaActual--
-//     console.log("pagina actual", paginaActual)
-//     botonUltima.disabled = false;
-//     botonProx.disabled = false;
-//     buscarComics(paginaActual)
-//   }
-
-//   botonPrimera.onclick = () => {
-
-//     offset = 0;
-//     paginaActual = 0;
-//     console.log("vamos a la primera", paginaActual)
-//     botonPrimera.disabled = true;
-//     botonPrevio.disabled = true;
-//     botonUltima.disabled = false;
-//     botonProx.disabled = false;
-//     buscarComics(paginaActual)
-//   }
-
-//   botonUltima.onclick = () => {
-
-//     offset = 2420;
-//     paginaActual = 2420;
-//     console.log("vamos a la ultima", paginaActual)
-//     botonUltima.disabled = true;
-//     botonProx.disabled = true;
-//     botonPrimera.disabled = false;
-//     botonPrevio.disabled = false;
-//     buscarComics(paginaActual)
-//   }
-
-// }
-
-// // paginado()
-
-
-// const paginadoPersonajes = () => {
-
-
-//   botonProx.onclick = () => {
-//     paginaActual++
-//     console.log("pagina actual", paginaActual)
-//     botonPrimera.disabled = false;
-//     botonPrevio.disabled = false;
-//     buscarPersonajes(paginaActual)
-//   }
-
-
-//   botonPrevio.onclick = () => {
-//     paginaActual--
-//     console.log("pagina actual", paginaActual)
-//     botonUltima.disabled = false;
-//     botonProx.disabled = false;
-//     buscarPersonajes(paginaActual)
-//   }
-
-//   botonPrimera.onclick = () => {
-
-//     offset = 0;
-//     paginaActual = 0;
-//     console.log("vamos a la primera", paginaActual)
-//     botonPrimera.disabled = true;
-//     botonPrevio.disabled = true;
-//     botonUltima.disabled = false;
-//     botonProx.disabled = false;
-//     buscarPersonajes(paginaActual)
-//   }
-
-//   botonUltima.onclick = () => {
-
-//     offset = 74;
-//     paginaActual = 74;
-//     console.log("vamos a la ultima", paginaActual)
-//     botonUltima.disabled = true;
-//     botonProx.disabled = true;
-//     botonPrimera.disabled = false;
-//     botonPrevio.disabled = false;
-//     buscarPersonajes(paginaActual)
-//   }
-
-// }
-
-// // paginadoPersonajes()
 
 ////////// RESULTADOS
 
 const mostrarResultadosDeLaBusqueda=(numero)=>{
 
   numeroDeResultados.textContent=numero
-  return numero
 
 
 }
 
-const contarComicsMostrados = () => {
+const MostrarTotal= (numero) => {
   
-  numeroResultadosMostrados.textContent = 48449
+  numeroResultadosMostrados.textContent = numero
 }
 
-const contarPersonajesMostrados = () => {
-  
-  numeroResultadosMostrados.textContent = 1493
-}
-
-
-// const contarComicsMostrados = (count) => {
-//   numeroResultadosMostrados.innerHTML = count
-//   resultsCount = count
-// }
-
-// const updateResultsTitle = (title) => {
-//   $('.resultados').innerHTML = title
-// }
 
