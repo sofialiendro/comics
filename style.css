@@ -73,6 +73,7 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 input, select {
@@ -89,7 +90,7 @@ input, select {
   padding: 13px;
   border-bottom: 2px solid black;
   font-family: "Roboto";
-  width: 600px;
+  width: 100%;
   font-size: 20px;
   background-color: #fafafa;
 }
@@ -122,9 +123,7 @@ input, select {
 #comics .comic-principal:hover {
   transform: translateY(-10px);
   color: #e920ac;
-
   transform: translateY(-10px);
-
 }
 #comics .comic-principal {
   cursor: pointer;
@@ -134,24 +133,44 @@ input, select {
   height: 300px;
   margin: 50px;
 }
-#comics article .portada-comic {
+#comics article #info-y-portada {
+  display: flex;
+  width: 100vw;
+  height: 50vh;
+}
+#comics article #info-y-portada div {
+  height: 50px;
   width: 100%;
 }
-#comics article img {
+#comics article #info-y-portada div .info-portada {
+  width: 50%;
+}
+#comics article #info-y-portada .portada {
+  width: 30vw;
+  margin-right: 2%;
+}
+#comics article #info-y-portada .portada .img-2 {
   width: 100%;
   height: auto;
 }
-#comics .info-portada {
-  margin: 0;
-  margin-left: 100px;
+@media (max-width: 400px) {
+  #comics article #info-y-portada .portada {
+    margin: 0;
+  }
+}
+@media (max-width: 400px) {
+  #comics article #info-y-portada {
+    flex-wrap: wrap;
+  }
+}
+#comics .portada-comic {
   width: 100%;
-  font-size: 30px;
-  width: 800px;
+}
+#comics img {
+  width: 100%;
+  height: auto;
 }
 
-.character-article {
-  width: 500px;
-}
 .character-article .tarjeta-personaje {
   width: 100%;
   cursor: pointer;
@@ -160,7 +179,6 @@ input, select {
   transform: translateY(-10px);
   color: #e920ac;
 }
-
 
 .section-characters {
   display: flex;
@@ -261,16 +279,6 @@ input, select {
 
 .botones-comics {
   margin-top: 10%;
-}
-
-.info-comic {
-  display: flex;
-  font-size: 5px;
-}
-
-.character-article {
-  overflow: hidden;
-  width: calc(100% / 6 - 2 * 10px);
 }
 
 .hidden {
