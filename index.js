@@ -91,14 +91,14 @@ const verComic = (e) => {
       seccion.innerHTML = `
         <article>
         <div id="info-y-portada">
-        <div class="portada">
+        <div class="portada tamaño-imagen">
         <img class="img-2" src="${comic.thumbnail.path}.jpg"></img>
         </div>
         <div class="info-portada">
         <div> <h2>${comic.title}</h2></div>
-        <div> <h2>Publishing Date:</h2> <p>${comic.dates[0].date}</p></div>
-        <div><h2>Writers:</h2> <p> ${obtenerNombresDeGuionistas(comic)}</p></div>
-        <div><h2>Description:</h2><p>${comic.description}</p></div>
+        <div> <h3>Publishing Date:</h3> <p>${comic.dates[0].date}</p></div>
+        <div><h3>Writers:</h3> <p> ${obtenerNombresDeGuionistas(comic)}</p></div>
+        <div><h3>Description:</h3><p>${comic.description}</p></div>
         </div>
         </article>
 
@@ -393,6 +393,7 @@ const search = () => {
 
   }
 
+  
 }
 
 const actualizarFiltros = () => {
@@ -477,6 +478,13 @@ const deshabilitarPaginado = () => {
     botonPrevio.disabled = true;
 }
 
+const habilitarPaginado = () => {
+  botonUltima.disabled = false;
+    botonProx.disabled = false;
+    botonPrimera.disabled = false;
+    botonPrevio.disabled = false;
+}
+
 
 const paginado = () => {
 
@@ -545,11 +553,4 @@ const MostrarTotal= (numero) => {
   
   numeroResultadosMostrados.textContent = numero
 }
-
-
-
-///////// LOGO
-
-
-
 
