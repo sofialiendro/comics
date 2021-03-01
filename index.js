@@ -1,5 +1,3 @@
-
-
 let offset = 0
 
 const botonProx = document.querySelector(".proxima-pagina");
@@ -65,8 +63,10 @@ const agregarEventoClick=(clase,funcion)=>{
   let articles = Array.from(document.getElementsByClassName(clase))
   articles.forEach((article) => {
     article.addEventListener('click', funcion)
+    
 
   })
+  
   
 
 
@@ -118,7 +118,7 @@ const verComic = (e) => {
 
 
         personajes.map((personaje) => {
-          seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
+          seccionPersonajes.innerHTML += `<article class="character-article hover-character" data-id="${personaje.id}">
           <div class="imagen-comic-personaje">
           <img data-id="${personaje.id}" class="comic-thumbnail imagen-tamaño" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
               alt="">
@@ -129,7 +129,7 @@ const verComic = (e) => {
         </article>`
   
         })
-  
+        seccionResultadosComicsYPersonajes.classList.remove("hidden")
         agregarEventoClick("character-article",verPersonajes)
         deshabilitarPaginado()
 
@@ -185,7 +185,7 @@ const buscarPersonajes = (orden) => {
       const seccionPersonajes = document.querySelector("#comics")
       seccion.innerHTML = ""
       personajes.map((personaje) => {
-        seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
+        seccionPersonajes.innerHTML += `<article class="character-article hover-character" data-id="${personaje.id}">
         <div class="tarjeta-personaje">
         <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
             alt="">
@@ -231,11 +231,14 @@ const verPersonajes = (e) => {
       //Agrego article de personaje seleccionado
 
 
-      seccion.innerHTML = `<article class="character-article" data-id="${personaje.id}">
+      seccion.innerHTML = `<article class="character-article estilado-character" data-id="${personaje.id}">
       <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
-          alt="">
+          alt="Marvel character pic">
+      <div class="contenedor-background-char-title">
       <div data-id="${personaje.id}" class="background-char-title">
-          <h3 class="character-title">${personaje.name}</h3>   
+          <h3 class="character-title">${personaje.name}</h3> 
+          <p>${personaje.description}</p> 
+      <div>
 
       </div>
     </article>`
@@ -254,7 +257,7 @@ const verPersonajes = (e) => {
       
         comics.map((comic) => {
           seccion.innerHTML += `
-        <article data-id=${comic.id} class="tarjeta-comic comic-principal">
+        <article data-id=${comic.id} class="tarjeta-comic comic-principal hover-character">
   
           <img data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
 
@@ -262,13 +265,20 @@ const verPersonajes = (e) => {
         </article>        
                 `
         })
-  
+        seccionResultadosComicsYPersonajes.classList.remove("hidden")
+        
         agregarEventoClick("tarjeta-comic",verComic)
         deshabilitarPaginado()
 
       })
     })
 }
+
+
+
+
+
+
 
 
 const buscarComicPorTitulo = (titulo, orden) => {
@@ -535,5 +545,11 @@ const MostrarTotal= (numero) => {
   
   numeroResultadosMostrados.textContent = numero
 }
+
+
+
+///////// LOGO
+
+
 
 
