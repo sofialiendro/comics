@@ -129,7 +129,7 @@ const verComic = (e) => {
         </article>`
   
         })
-        seccionResultadosComicsYPersonajes.classList.remove("hidden")
+        // seccionResultadosComicsYPersonajes.classList.remove("hidden")
         agregarEventoClick("character-article",verPersonajes)
         deshabilitarPaginado()
 
@@ -265,7 +265,7 @@ const verPersonajes = (e) => {
         </article>        
                 `
         })
-        seccionResultadosComicsYPersonajes.classList.remove("hidden")
+        // seccionResultadosComicsYPersonajes.classList.remove("hidden")
         
         agregarEventoClick("tarjeta-comic",verComic)
         deshabilitarPaginado()
