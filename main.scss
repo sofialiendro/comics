@@ -147,7 +147,7 @@ input, select {
 
 
     @media(max-width:500px) {
-        padding-top: 300px;
+        padding-top: 700px;
     }
 }
 
@@ -195,6 +195,16 @@ input, select {
     
 
 }
+
+.descripcion-comic {
+
+    @media(min-width:800px) {
+        width: 600px;
+    }
+    
+    
+}
+
 .contenedor-background-char-title {
         @media(max-width:500px) {
                     display: flex;

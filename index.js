@@ -100,7 +100,7 @@ const verComic = (e) => {
         <div> <h2>${comic.title}</h2></div>
         <div> <h3>Publishing Date:</h3> <p>${comic.dates[0].date}</p></div>
         <div><h3>Writers:</h3> <p> ${obtenerNombresDeGuionistas(comic)}</p></div>
-        <div><h3>Description:</h3><p>${comic.description}</p></div>
+        <div><h3>Description:</h3><p class="descripcion-comic">${comic.description}</p></div>
         </div>
         </article>
 

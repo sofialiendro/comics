@@ -117,7 +117,7 @@ input, select {
 }
 @media (max-width: 500px) {
   .resultados {
-    padding-top: 300px;
+    padding-top: 700px;
   }
 }
 
@@ -149,6 +149,12 @@ input, select {
   width: 600px;
   height: auto;
   padding-left: 100px;
+}
+
+@media (min-width: 800px) {
+  .descripcion-comic {
+    width: 600px;
+  }
 }
 
 @media (max-width: 500px) {
