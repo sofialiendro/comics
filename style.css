@@ -46,6 +46,7 @@ button {
   line-height: 50px;
   margin: 0;
   padding: 0 10px;
+  cursor: pointer;
 }
 
 .contenedor-imagen-principal {
@@ -112,7 +113,12 @@ input, select {
 }
 
 .resultados {
-  padding-top: 80px;
+  padding-top: 100px;
+}
+@media (max-width: 500px) {
+  .resultados {
+    padding-top: 300px;
+  }
 }
 
 #comics {
@@ -128,41 +134,6 @@ input, select {
 #comics .comic-principal {
   cursor: pointer;
 }
-#comics article {
-  width: 200px;
-  height: 300px;
-  margin: 50px;
-}
-#comics article #info-y-portada {
-  display: flex;
-  width: 100vw;
-  height: 50vh;
-}
-#comics article #info-y-portada div {
-  height: 50px;
-  width: 100%;
-}
-#comics article #info-y-portada div .info-portada {
-  width: 50%;
-}
-#comics article #info-y-portada .portada {
-  width: 30vw;
-  margin-right: 2%;
-}
-#comics article #info-y-portada .portada .img-2 {
-  width: 100%;
-  height: auto;
-}
-@media (max-width: 400px) {
-  #comics article #info-y-portada .portada {
-    margin: 0;
-  }
-}
-@media (max-width: 400px) {
-  #comics article #info-y-portada {
-    flex-wrap: wrap;
-  }
-}
 #comics .portada-comic {
   width: 100%;
 }
@@ -171,13 +142,63 @@ input, select {
   height: auto;
 }
 
-.character-article .tarjeta-personaje {
-  width: 100%;
-  cursor: pointer;
+.estilado-character {
+  display: flex;
 }
-.character-article .tarjeta-personaje:hover {
-  transform: translateY(-10px);
-  color: #e920ac;
+.estilado-character .background-char-title {
+  width: 600px;
+  height: auto;
+  padding-left: 100px;
+}
+
+@media (max-width: 500px) {
+  .contenedor-background-char-title {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+article {
+  width: 200px;
+  height: 300px;
+  margin: 50px;
+}
+article #info-y-portada {
+  display: flex;
+  width: 100vw;
+  height: 50vh;
+}
+article #info-y-portada div {
+  height: 50px;
+  width: 100%;
+}
+article #info-y-portada div .info-portada {
+  width: 50%;
+}
+article #info-y-portada .portada {
+  width: 15vw;
+  margin-right: 2%;
+}
+article #info-y-portada .portada .img-2 {
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 400px) {
+  article #info-y-portada .portada {
+    margin: 0;
+  }
+}
+@media (max-width: 500px) {
+  article #info-y-portada {
+    flex-wrap: wrap;
+    padding-bottom: 200px;
+    width: auto;
+  }
+}
+@media (max-width: 500px) {
+  article #info-y-portada h2 {
+    font-size: 18px;
+  }
 }
 
 .section-characters {
@@ -204,6 +225,13 @@ input, select {
 }
 .section-characters .character-article h3 {
   text-transform: uppercase;
+}
+
+.hover-character:hover {
+  transform: translateY(-10px);
+  color: #e920ac;
+  transform: translateY(-10px);
+  cursor: pointer;
 }
 
 .tarjeta-comic {

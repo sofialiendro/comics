@@ -1,23 +1,20 @@
-
-
 let offset = 0
-
 const botonProx = document.querySelector(".proxima-pagina");
 const botonPrevio = document.querySelector(".previa-pagina");
 const botonPrimera = document.querySelector(".primera-pagina");
 const botonUltima = document.querySelector(".ultima-pagina");
 let paginaActual = 0;
 const $ = (query) => document.querySelector(query)
-const ApiKey = "4d140645edcdb0c22d45f34f5fd8098a";
 let seccion = document.querySelector("#comics")
-const URLbase = 'https://gateway.marvel.com/v1/public'
 const comicPortadas = document.querySelectorAll(".imagen-comic")
-let total=0
+let total = 0
 let comicsPorPagina = 20;
 const numeroResultadosMostrados = document.querySelector('.cantidad-mostrada')
 const formulario = document.querySelector(".formulario")
-let numeroDeResultados=document.querySelector(".numero-de-resultados")
+let numeroDeResultados = document.querySelector(".numero-de-resultados")
 let seccionResultadosComicsYPersonajes = document.querySelector(".contenedor-comics-personajes-resultados")
+let vengoDelBotonSearch = ''
+let vengoDeVerPersonajesOComics =false
 
 
 
@@ -28,6 +25,7 @@ let seccionResultadosComicsYPersonajes = document.querySelector(".contenedor-com
 
 const buscarComics = (orden) => {
   console.log("buscando comics...")
+  offset = paginaActual * comicsPorPagina
   fetch(`https://gateway.marvel.com/v1/public/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=${orden}&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
@@ -35,12 +33,12 @@ const buscarComics = (orden) => {
     .then((data) => {
       console.log(data)
       comics = data.data.results
-      total=data.data.total
+      total = data.data.total
       MostrarTotal(total)
-    
+
 
       const seccionPersonajes = document.querySelector(".section-characters")
-      seccionPersonajes.innerHTML= ""
+      seccionPersonajes.innerHTML = ""
 
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
@@ -54,20 +52,23 @@ const buscarComics = (orden) => {
       </article>`
       })
 
-      agregarEventoClick("tarjeta-comic",verComic)
+      agregarEventoClick("tarjeta-comic", verComic)
+      vengoDeVerPersonajesOComics =false
 
-      
+
     })
-    
+
 }
 
-const agregarEventoClick=(clase,funcion)=>{
+const agregarEventoClick = (clase, funcion) => {
   let articles = Array.from(document.getElementsByClassName(clase))
   articles.forEach((article) => {
     article.addEventListener('click', funcion)
 
+
   })
-  
+
+
 
 
 }
@@ -76,14 +77,15 @@ const agregarEventoClick=(clase,funcion)=>{
 
 
 const verComic = (e) => {
+  offset = paginaActual * comicsPorPagina
   fetch(`https://gateway.marvel.com/v1/public/comics/${e.target.dataset.id}?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset= ${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
     })
     .then((data) => {
       let comic = data.data.results[0]
-      let contenedorResultados=document.querySelector(".contenedor-resultados")
-      contenedorResultados.innerHTML=""
+      let contenedorResultados = document.querySelector(".contenedor-resultados")
+      contenedorResultados.innerHTML = ""
 
 
       const seccion = document.querySelector("#comics")
@@ -91,34 +93,35 @@ const verComic = (e) => {
       seccion.innerHTML = `
         <article>
         <div id="info-y-portada">
-        <div class="portada">
+        <div class="portada tamaño-imagen">
         <img class="img-2" src="${comic.thumbnail.path}.jpg"></img>
         </div>
         <div class="info-portada">
         <div> <h2>${comic.title}</h2></div>
-        <div> <h2>Publishing Date:</h2> <p>${comic.dates[0].date}</p></div>
-        <div><h2>Writers:</h2> <p> ${obtenerNombresDeGuionistas(comic)}</p></div>
-        <div><h2>Description:</h2><p>${comic.description}</p></div>
+        <div> <h3>Publishing Date:</h3> <p>${comic.dates[0].date}</p></div>
+        <div><h3>Writers:</h3> <p> ${obtenerNombresDeGuionistas(comic)}</p></div>
+        <div><h3>Description:</h3><p>${comic.description}</p></div>
         </div>
         </article>
 
       `
+      offset = paginaActual * comicsPorPagina
       fetch(`https://gateway.marvel.com/v1/public/comics/${e.target.dataset.id}/characters?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset= ${paginaActual * comicsPorPagina}`)
-      .then((res) => {
-        return res.json()
-      })
-      .then((dataPersonajes) => {
-        let personajes = dataPersonajes.data.results
-    
+        .then((res) => {
+          return res.json()
+        })
+        .then((dataPersonajes) => {
+          let personajes = dataPersonajes.data.results
 
 
-        const seccionPersonajes = document.querySelector(".section-characters")
-        seccionPersonajes.innerHTML = ""
-        mostrarResultadosDeLaBusqueda(personajes.length)
+
+          const seccionPersonajes = document.querySelector(".section-characters")
+          seccionPersonajes.innerHTML = ""
+          mostrarResultadosDeLaBusqueda(personajes.length)
 
 
-        personajes.map((personaje) => {
-          seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
+          personajes.map((personaje) => {
+            seccionPersonajes.innerHTML += `<article class="character-article hover-character" data-id="${personaje.id}">
           <div class="imagen-comic-personaje">
           <img data-id="${personaje.id}" class="comic-thumbnail imagen-tamaño" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
               alt="">
@@ -127,17 +130,20 @@ const verComic = (e) => {
           </div>
           </div>
         </article>`
-  
-        })
-  
-        agregarEventoClick("character-article",verPersonajes)
-        deshabilitarPaginado()
 
-      })
-    
-   
-   })
-  
+          })
+
+          // Male acá esto nos rompía el código, era para ocultar Resultados que se ve abajo en la página principal. Pasaba que se ocultaba pero después ya no se veían la cantidad de resultados al hacer click en un comic o personaje.
+          // seccionResultadosComicsYPersonajes.classList.remove("hidden")
+          agregarEventoClick("character-article", verPersonajes)
+          deshabilitarPaginado()
+          vengoDeVerPersonajesOComics =true
+
+        })
+
+
+    })
+
 
 }
 
@@ -169,6 +175,7 @@ obtenerNombresDeGuionistas = (comic) => {
 
 const buscarPersonajes = (orden) => {
   console.log("buscando personajes...")
+  offset = paginaActual * comicsPorPagina
   fetch(`https://gateway.marvel.com/v1/public/characters?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=${orden}&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
@@ -176,16 +183,16 @@ const buscarPersonajes = (orden) => {
     .then((data) => {
       console.log(data)
       personajes = data.data.results
-      total=data.data.total
+      total = data.data.total
       MostrarTotal(total)
 
 
-     
-      
+
+
       const seccionPersonajes = document.querySelector("#comics")
       seccion.innerHTML = ""
       personajes.map((personaje) => {
-        seccionPersonajes.innerHTML += `<article class="character-article" data-id="${personaje.id}">
+        seccionPersonajes.innerHTML += `<article class="character-article hover-character" data-id="${personaje.id}">
         <div class="tarjeta-personaje">
         <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
             alt="">
@@ -198,12 +205,13 @@ const buscarPersonajes = (orden) => {
       })
 
 
-      agregarEventoClick("character-article",verPersonajes)
+      agregarEventoClick("character-article", verPersonajes)
+      vengoDeVerPersonajesOComics =false
 
 
-      
+
     })
-    
+
 
 }
 
@@ -211,7 +219,7 @@ const buscarPersonajes = (orden) => {
 const verPersonajes = (e) => {
 
 
-
+  offset = paginaActual * comicsPorPagina
   fetch(`https://gateway.marvel.com/v1/public/characters/${e.target.dataset.id}?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=name&offset= ${paginaActual * comicsPorPagina}`)
 
     .then((res) => {
@@ -221,8 +229,8 @@ const verPersonajes = (e) => {
 
       let personaje = data.data.results[0]
       //Borro el total
-      let contenedorResultados=document.querySelector(".contenedor-resultados")
-      contenedorResultados.innerHTML=""
+      let contenedorResultados = document.querySelector(".contenedor-resultados")
+      contenedorResultados.innerHTML = ""
       //Borro los demas personajes
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
@@ -231,58 +239,70 @@ const verPersonajes = (e) => {
       //Agrego article de personaje seleccionado
 
 
-      seccion.innerHTML = `<article class="character-article" data-id="${personaje.id}">
+      seccion.innerHTML = `<article class="character-article estilado-character" data-id="${personaje.id}">
       <img data-id="${personaje.id}" class="comic-thumbnail" src="${personaje.thumbnail.path}.${personaje.thumbnail.extension}"
-          alt="">
+          alt="Marvel character pic">
+      <div class="contenedor-background-char-title">
       <div data-id="${personaje.id}" class="background-char-title">
-          <h3 class="character-title">${personaje.name}</h3>   
+          <h3 class="character-title">${personaje.name}</h3> 
+          <p>${personaje.description}</p> 
+      <div>
 
       </div>
     </article>`
+    offset = paginaActual * comicsPorPagina
+      fetch(`https://gateway.marvel.com/v1/public/characters/${e.target.dataset.id}/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset= ${paginaActual * comicsPorPagina}`)
+        .then((res) => {
+          return res.json()
+        })
+        .then((dataComics) => {
+          let comics = dataComics.data.results
 
-    fetch(`https://gateway.marvel.com/v1/public/characters/${e.target.dataset.id}/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=title&offset= ${paginaActual * comicsPorPagina}`)
-      .then((res) => {
-        return res.json()
-      })
-      .then((dataComics) => {
-        let comics = dataComics.data.results
+          const seccion = document.querySelector(".section-characters")
+          seccion.innerHTML = ""
 
-        const seccion = document.querySelector(".section-characters")
-        seccion.innerHTML=""
-        
-        mostrarResultadosDeLaBusqueda(comics.length)
-      
-        comics.map((comic) => {
-          seccion.innerHTML += `
-        <article data-id=${comic.id} class="tarjeta-comic comic-principal">
+          mostrarResultadosDeLaBusqueda(comics.length)
+
+          comics.map((comic) => {
+            seccion.innerHTML += `
+        <article data-id=${comic.id} class="tarjeta-comic comic-principal hover-character">
   
           <img data-id=${comic.id} src="${comic.thumbnail.path}/portrait_uncanny.${comic.thumbnail.extension}" alt="" class="comic-thumbnail" />
 
         <h3 data-id=${comic.id} class="comic-title">${comic.title}</h3>
         </article>        
                 `
-        })
-  
-        agregarEventoClick("tarjeta-comic",verComic)
-        deshabilitarPaginado()
+          })
+       
 
-      })
+          agregarEventoClick("tarjeta-comic", verComic)
+          deshabilitarPaginado()
+          vengoDeVerPersonajesOComics = true
+
+        })
     })
 }
 
 
+
+
+
+
+
+
 const buscarComicPorTitulo = (titulo, orden) => {
+  offset = paginaActual * comicsPorPagina
   fetch(`https://gateway.marvel.com:443/v1/public/comics?format=comic&titleStartsWith=${titulo}&orderBy=${orden}&apikey=4d140645edcdb0c22d45f34f5fd8098a&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
     })
     .then((data) => {
       comics = data.data.results
-      total=data.data.total
+      total = data.data.total
       MostrarTotal(total)
 
       const seccionPersonajes = document.querySelector(".section-characters")
-      seccionPersonajes.innerHTML= ""
+      seccionPersonajes.innerHTML = ""
 
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
@@ -298,12 +318,17 @@ const buscarComicPorTitulo = (titulo, orden) => {
               `
       })
 
-      agregarEventoClick("tarjeta-comic",verComic)
+      agregarEventoClick("tarjeta-comic", verComic)
+      vengoDeVerPersonajesOComics =false
+
+
       
+      // Male acá esto también nos rompía en ciertas instancias el código. 
+
       // const decirQueNoHayResultados = () => {
       //   if (comics.length === 0) {
       //   $('.contenedor-resultados').innerHTML =
-      //     '<h2 class="no-results">No se han encontrado resultados</h2>'
+      //     '<h2 class="no-results">No results</h2>'
 
       //   }
       // }
@@ -312,17 +337,18 @@ const buscarComicPorTitulo = (titulo, orden) => {
 }
 
 const buscarPersonajePorNombre = (nombre, orden) => {
+  offset = paginaActual * comicsPorPagina
   fetch(`https://gateway.marvel.com:443/v1/public/characters?nameStartsWith=${nombre}&orderBy=${orden}&apikey=4d140645edcdb0c22d45f34f5fd8098a&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
     })
     .then((data) => {
       let personajes = data.data.results
-      total=data.data.total
+      total = data.data.total
       MostrarTotal(total)
 
       const seccionPersonajes = document.querySelector(".section-characters")
-      seccionPersonajes.innerHTML= ""
+      seccionPersonajes.innerHTML = ""
 
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
@@ -337,20 +363,25 @@ const buscarPersonajePorNombre = (nombre, orden) => {
         </div>
         </div>
       </article>`
-        
+
       })
 
-      agregarEventoClick("character-article",verPersonajes)
+      agregarEventoClick("character-article", verPersonajes)
+      vengoDeVerPersonajesOComics =false
 
+
+      // Acá lo mismo que arriba
+
+    
       // const decirQueNoHayResultados = () => {
       //   if (personajes.length === 0) {
       //   $('.contenedor-resultados').innerHTML =
-      //     '<h2 class="no-results">No se han encontrado resultados</h2>'
+      //     '<h2 class="no-results">No results</h2>'
 
       //   }
       // }
       // decirQueNoHayResultados()
-      
+
 
     })
 }
@@ -358,6 +389,14 @@ const buscarPersonajePorNombre = (nombre, orden) => {
 
 
 const search = () => {
+
+  if (vengoDelBotonSearch){
+    paginaActual=0
+    offset=0
+  }
+  if(vengoDelBotonSearch || vengoDeVerPersonajesOComics){
+    fijarmeSiDeshabilitoBotonesDePaginado()
+  }
 
   let tipo = $('#tipo').value
   let orden = $('#orden').value
@@ -382,7 +421,19 @@ const search = () => {
     }
 
   }
+ 
 
+
+}
+
+const fijarmeSiDeshabilitoBotonesDePaginado = () =>{
+  if(estoyEnLaUltimaPagina()){
+    deshabilitarBotonesUltimoYProximo()
+  }else if(paginaActual === 0){
+    deshabilitarBotonesPrimeroYPrevio()
+  }else{
+    habilitarPaginado()
+  }
 }
 
 const actualizarFiltros = () => {
@@ -401,13 +452,13 @@ const actualizarFiltros = () => {
     `
   }
 
-   
+
 }
 
 const iniciar = () => {
   $('.boton-buscar').onclick = () => {
-   
 
+    vengoDelBotonSearch = true;
     search()
     paginado()
   }
@@ -437,7 +488,7 @@ const buscarComicsTitle = () => {
       comics = data.data.results
 
       const seccionPersonajes = document.querySelector(".section-characters")
-      seccionPersonajes.innerHTML= ""
+      seccionPersonajes.innerHTML = ""
 
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
@@ -451,10 +502,10 @@ const buscarComicsTitle = () => {
       </article>`
       })
 
-      agregarEventoClick("tarjeta-comic",verComic)
+      agregarEventoClick("tarjeta-comic", verComic)
       paginado()
     })
-    
+
 }
 
 
@@ -462,9 +513,44 @@ const buscarComicsTitle = () => {
 
 const deshabilitarPaginado = () => {
   botonUltima.disabled = true;
-    botonProx.disabled = true;
-    botonPrimera.disabled = true;
-    botonPrevio.disabled = true;
+  botonProx.disabled = true;
+  botonPrimera.disabled = true;
+  botonPrevio.disabled = true;
+}
+
+const habilitarPaginado = () => {
+
+  botonUltima.disabled = false;
+  botonProx.disabled = false;
+  botonPrimera.disabled = false;
+  botonPrevio.disabled = false;
+
+}
+
+const deshabilitarBotonesPrimeroYPrevio = () => {
+  botonPrimera.disabled = true;
+  botonPrevio.disabled = true;
+  botonUltima.disabled = false;
+  botonProx.disabled = false;
+
+}
+const deshabilitarBotonesUltimoYProximo = () => {
+  botonUltima.disabled = true;
+  botonProx.disabled = true;
+  botonPrimera.disabled = false;
+  botonPrevio.disabled = false;
+
+}
+
+const estoyEnLaUltimaPagina = () =>{
+  const n = total - offset
+  
+  if(n<=20){
+    return true
+  }else{
+    return false
+  }
+
 }
 
 
@@ -473,50 +559,57 @@ const paginado = () => {
 
   botonProx.onclick = () => {
     paginaActual++
-    botonPrimera.disabled = false;
-    botonPrevio.disabled = false;
 
+    if(estoyEnLaUltimaPagina()){
+      deshabilitarBotonesUltimoYProximo()
+    }else{
+      habilitarPaginado()
+    }
+
+    vengoDelBotonSearch = false
     search()
   }
 
 
   botonPrevio.onclick = () => {
     paginaActual--
- 
-    botonUltima.disabled = false;
-    botonProx.disabled = false;
-   
+    if (paginaActual === 0) {
+      deshabilitarBotonesPrimeroYPrevio()
+
+    } else {
+      habilitarPaginado()
+    }
+
+
+    vengoDelBotonSearch = false
     search()
   }
 
   botonPrimera.onclick = () => {
-
-    
     paginaActual = 0;
-    botonPrimera.disabled = true;
-    botonPrevio.disabled = true;
-    botonUltima.disabled = false;
-    botonProx.disabled = false;
-    
+    deshabilitarBotonesPrimeroYPrevio()
+
+    vengoDelBotonSearch = false
     search()
   }
 
   botonUltima.onclick = () => {
-   const resto = total % comicsPorPagina
-  
-   if (resto > 0) {
-     paginaActual = (total - (resto)) / comicsPorPagina
-   }
-   else {
-     paginaActual = ((total - (resto)) / comicsPorPagina) - comicsPorPagina
-   }
 
+ 
+
+    const resto = total % comicsPorPagina
+
+    if (resto > 0) {
+      paginaActual = (total - (resto)) / comicsPorPagina
+    }
+    else {
+      paginaActual = ((total - (resto)) / comicsPorPagina) - comicsPorPagina
+    }
+
+
+    deshabilitarBotonesUltimoYProximo()
     
-    botonUltima.disabled = true;
-    botonProx.disabled = true;
-    botonPrimera.disabled = false;
-    botonPrevio.disabled = false;
-
+    vengoDelBotonSearch = false
     search()
   }
 
@@ -524,16 +617,15 @@ const paginado = () => {
 
 ////////// RESULTADOS
 
-const mostrarResultadosDeLaBusqueda=(numero)=>{
+const mostrarResultadosDeLaBusqueda = (numero) => {
 
-  numeroDeResultados.textContent=numero
+  numeroDeResultados.textContent = numero
 
 
 }
 
-const MostrarTotal= (numero) => {
-  
+const MostrarTotal = (numero) => {
+
   numeroResultadosMostrados.textContent = numero
 }
-
 
