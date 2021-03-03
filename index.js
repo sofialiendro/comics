@@ -1,14 +1,11 @@
 let offset = 0
-
 const botonProx = document.querySelector(".proxima-pagina");
 const botonPrevio = document.querySelector(".previa-pagina");
 const botonPrimera = document.querySelector(".primera-pagina");
 const botonUltima = document.querySelector(".ultima-pagina");
 let paginaActual = 0;
 const $ = (query) => document.querySelector(query)
-const ApiKey = "4d140645edcdb0c22d45f34f5fd8098a";
 let seccion = document.querySelector("#comics")
-const URLbase = 'https://gateway.marvel.com/v1/public'
 const comicPortadas = document.querySelectorAll(".imagen-comic")
 let total = 0
 let comicsPorPagina = 20;
@@ -135,6 +132,8 @@ const verComic = (e) => {
         </article>`
 
           })
+
+          // Male acá esto nos rompía el código, era para ocultar Resultados que se ve abajo en la página principal. Pasaba que se ocultaba pero después ya no se veían la cantidad de resultados al hacer click en un comic o personaje.
           // seccionResultadosComicsYPersonajes.classList.remove("hidden")
           agregarEventoClick("character-article", verPersonajes)
           deshabilitarPaginado()
@@ -322,10 +321,14 @@ const buscarComicPorTitulo = (titulo, orden) => {
       agregarEventoClick("tarjeta-comic", verComic)
       vengoDeVerPersonajesOComics =false
 
+
+      
+      // Male acá esto también nos rompía en ciertas instancias el código. 
+
       // const decirQueNoHayResultados = () => {
       //   if (comics.length === 0) {
       //   $('.contenedor-resultados').innerHTML =
-      //     '<h2 class="no-results">No se han encontrado resultados</h2>'
+      //     '<h2 class="no-results">No results</h2>'
 
       //   }
       // }
@@ -366,10 +369,14 @@ const buscarPersonajePorNombre = (nombre, orden) => {
       agregarEventoClick("character-article", verPersonajes)
       vengoDeVerPersonajesOComics =false
 
+
+      // Acá lo mismo que arriba
+
+    
       // const decirQueNoHayResultados = () => {
       //   if (personajes.length === 0) {
       //   $('.contenedor-resultados').innerHTML =
-      //     '<h2 class="no-results">No se han encontrado resultados</h2>'
+      //     '<h2 class="no-results">No results</h2>'
 
       //   }
       // }

@@ -144,6 +144,11 @@ input, select {
 
 .resultados {
     padding-top: 100px;
+
+
+    @media(max-width:500px) {
+        padding-top: 300px;
+    }
 }
 
 #comics{
@@ -180,13 +185,22 @@ input, select {
     display: flex;
 
     .background-char-title {
-        width: 800px;
+        width: 600px;
         height: auto;
         padding-left: 100px;
+        
+        
     }
+    
+    
 
 }
-
+.contenedor-background-char-title {
+        @media(max-width:500px) {
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+    }
 
 
 article{
@@ -228,14 +242,24 @@ article{
         
             @media(max-width:400px){
                 margin: 0;
+                
             
-                }
             }
+        }
            
-        @media(max-width:400px){
+        @media(max-width:500px){
             flex-wrap: wrap;
-        
+            padding-bottom: 200px;
+            width: auto;
+        }
+
+        h2 {
+            @media(max-width:500px) {
+                font-size: 18px;
+               
             }
+        }
+        
     }
 
     

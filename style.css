@@ -115,6 +115,11 @@ input, select {
 .resultados {
   padding-top: 100px;
 }
+@media (max-width: 500px) {
+  .resultados {
+    padding-top: 300px;
+  }
+}
 
 #comics {
   display: flex;
@@ -141,9 +146,16 @@ input, select {
   display: flex;
 }
 .estilado-character .background-char-title {
-  width: 800px;
+  width: 600px;
   height: auto;
   padding-left: 100px;
+}
+
+@media (max-width: 500px) {
+  .contenedor-background-char-title {
+    display: flex;
+    flex-wrap: wrap;
+  }
 }
 
 article {
@@ -176,9 +188,16 @@ article #info-y-portada .portada .img-2 {
     margin: 0;
   }
 }
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   article #info-y-portada {
     flex-wrap: wrap;
+    padding-bottom: 200px;
+    width: auto;
+  }
+}
+@media (max-width: 500px) {
+  article #info-y-portada h2 {
+    font-size: 18px;
   }
 }
 
