@@ -4,6 +4,7 @@ const botonPrevio = document.querySelector(".previa-pagina");
 const botonPrimera = document.querySelector(".primera-pagina");
 const botonUltima = document.querySelector(".ultima-pagina");
 let paginaActual = 0;
+// por que declaran esta funcion si a lo largo del codigo usan document.querySelector?
 const $ = (query) => document.querySelector(query)
 let seccion = document.querySelector("#comics")
 const comicPortadas = document.querySelectorAll(".imagen-comic")
@@ -26,6 +27,8 @@ let vengoDeVerPersonajesOComics =false
 const buscarComics = (orden) => {
   console.log("buscando comics...")
   offset = paginaActual * comicsPorPagina
+  // la api key deberia ser una variable
+  // el fetch quiza podria estar en una funcion reutilizable 
   fetch(`https://gateway.marvel.com/v1/public/comics?apikey=4d140645edcdb0c22d45f34f5fd8098a&orderBy=${orden}&offset=${paginaActual * comicsPorPagina}`)
     .then((res) => {
       return res.json()
@@ -43,6 +46,7 @@ const buscarComics = (orden) => {
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
       comics.map((comic) => {
+        // el alt solo se deja vacio en imagenes decorativas
         seccion.innerHTML += `
       <article data-id=${comic.id} class="tarjeta-comic comic-principal">
       <div class="portada-comic">
@@ -90,6 +94,7 @@ const verComic = (e) => {
 
       const seccion = document.querySelector("#comics")
       seccion.innerHTML = ""
+      // en observaciones.md les deje como manejar fechas y descripcion
       seccion.innerHTML = `
         <article>
         <div id="info-y-portada">
@@ -133,14 +138,20 @@ const verComic = (e) => {
 
           })
 
-          // Male acá esto nos rompía el código, era para ocultar Resultados que se ve abajo en la página principal. Pasaba que se ocultaba pero después ya no se veían la cantidad de resultados al hacer click en un comic o personaje.
+          // Male acá esto nos rompía el código, era para ocultar Resultados que se ve abajo en la página principal. 
+          // Pasaba que se ocultaba pero después ya no se veían la cantidad de resultados al hacer click en un comic o personaje.
           // seccionResultadosComicsYPersonajes.classList.remove("hidden")
+
+          // Me cuesta entender el comentario de mas arriba. Lo que veo que hacen alli
+          // es mostrar, no ocultar, una seccion. Si descomento el codigo, los
+          // resultados se siguen viendo, tanto en los detalles como en la busqueda
+          // me cuentan sobre esto mas en profundidad? asi lo  arreglamos juntas
           agregarEventoClick("character-article", verPersonajes)
           deshabilitarPaginado()
           vengoDeVerPersonajesOComics =true
 
         })
-
+// estos espacios vacios son muy desprolijos!
 
     })
 
@@ -181,6 +192,7 @@ const buscarPersonajes = (orden) => {
       return res.json()
     })
     .then((data) => {
+      // los console log me hacen llorar
       console.log(data)
       personajes = data.data.results
       total = data.data.total
@@ -324,7 +336,9 @@ const buscarComicPorTitulo = (titulo, orden) => {
 
       
       // Male acá esto también nos rompía en ciertas instancias el código. 
-
+      // que error tenia? lo que me imagino es que comics venia undefined, 
+      // en ese caso habria que decir if (!comics || !comics.length)
+      // pero si identifican un momento en el que pase, me avisan asi lo pruebo
       // const decirQueNoHayResultados = () => {
       //   if (comics.length === 0) {
       //   $('.contenedor-resultados').innerHTML =
@@ -332,7 +346,7 @@ const buscarComicPorTitulo = (titulo, orden) => {
 
       //   }
       // }
-      /* decirQueNoHayResultados() */
+      //  decirQueNoHayResultados() 
     })
 }
 
